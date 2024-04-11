@@ -4,8 +4,8 @@ project(Shape_example)
 set(CMAKE_CXX_STANDARD 23)
 include(doctest.cmake)
 
-add_executable(Shape_example main.cpp)
-target_link_libraries(Shape_example PRIVATE doctest::doctest_with_main)
+add_executable(Run_main main.cpp)
+target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
 
 enable_testing()
 add_executable(my_test number_series_test.cpp)
