@@ -9,7 +9,12 @@
 #include <memory>
 #include <unordered_map>
 
+
 struct Var{};
+
+struct Expr{
+    std::shared_ptr<Var> var;
+};
 
 struct Environment : Var{};
 
@@ -20,7 +25,14 @@ struct Agent : Var{
     }
 };
 
-
+struct Term : Var{
+    std::shared_ptr<Var> Lhs;
+    std::shared_ptr<Var> Rhs;
+    Term(const std::shared_ptr<Var>& lhs, const std::shared_ptr<Var>& rhs){
+        Lhs = lhs;
+        Rhs = rhs;
+    }
+};
 
 struct Vessel {
     std::string vesselName;
@@ -36,10 +48,14 @@ struct Vessel {
         return Environment{};
     }
 
-    Agent add(const std::string& agentName, unsigned initialAmount){
+    Expr add(const std::string& agentName, unsigned initialAmount){
         auto agent = Agent(agentName);
         agents.push_back(agent);
         moleculeAmount.push_back(initialAmount);
-        return agent;
+        return Expr(std::make_shared<Agent>(agent));
     }
 };
+
+inline Expr operator+(const Expr expr1, const Expr expr2) {
+    return Expr(std::make_shared<Term>(Term(expr1.var, expr2.var)));
+}

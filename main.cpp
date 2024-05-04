@@ -37,6 +37,7 @@ Vessel circadian_rhythm() {
     const auto A = v.add("A", 0);
     const auto R = v.add("R", 0);
     const auto C = v.add("C", 0);
+    auto combination = (A + DA);
     /*
 
     v.add((A + DA) >> gammaA >>= D_A);
