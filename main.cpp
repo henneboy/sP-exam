@@ -37,9 +37,9 @@ Vessel circadian_rhythm() {
     const auto A = v.add("A", 0);
     const auto R = v.add("R", 0);
     const auto C = v.add("C", 0);
-    auto combination = (A + DA);
-    /*
-
+    const auto agentMultiOverload = (A + DA);
+    const auto agentAndDelayOverload = (D_A) >> thetaA;
+    const auto reaction = (A + DA) >> gammaA >>= D_A;
     v.add((A + DA) >> gammaA >>= D_A);
     v.add(D_A >> thetaA >>= DA + A);
     v.add((A + DR) >> gammaR >>= D_R);
@@ -56,6 +56,5 @@ Vessel circadian_rhythm() {
     v.add(R >> deltaR >>= env);
     v.add(MA >> deltaMA >>= env);
     v.add(MR >> deltaMR >>= env);
-     */
     return v;
 }
