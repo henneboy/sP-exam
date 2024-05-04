@@ -14,29 +14,32 @@ struct Var{};
 struct Environment : Var{};
 
 struct Agent : Var{
+    std::string Name;
     explicit Agent(std::string name){
         Name = std::move(name);
     }
-    std::string Name;
 };
+
+
 
 struct Vessel {
     std::string vesselName;
-    std::unordered_map<std::string, unsigned> agentLevel;
+    std::vector<Agent> agents{};
+    std::vector<unsigned> moleculeAmount{};
 
 
     explicit Vessel(std::string name){
         vesselName = std::move(name);
-        agentLevel = {};
     }
 
     static Environment environment(){
         return Environment{};
     }
 
-    Agent add(const std::string& agentName, unsigned initialMolecules){
+    Agent add(const std::string& agentName, unsigned initialAmount){
         auto agent = Agent(agentName);
-        agentLevel.insert(std::pair(agent.Name, initialMolecules));
+        agents.push_back(agent);
+        moleculeAmount.push_back(initialAmount);
         return agent;
     }
 };
