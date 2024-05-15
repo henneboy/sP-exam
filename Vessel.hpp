@@ -79,14 +79,14 @@ struct Vessel {
     }
 };
 
-inline Expr operator+(const Expr expr1, const Expr expr2) {
-    return Expr(std::make_shared<Term>(Term(expr1.var, expr2.var)));
+inline Expr operator+(const Expr& expr1, const Expr& expr2) {
+    return {std::make_shared<Term>(Term(expr1.var, expr2.var))};
 }
 
-inline PartialReaction operator>>(Expr lhs, const double delay) {
-    return PartialReaction(lhs.var, delay);
+inline PartialReaction operator>>(const Expr& lhs, const double delay) {
+    return {lhs.var, delay};
 }
 
 inline Reaction operator>>=(const PartialReaction& lhs, const Expr& rhs) {
-    return Reaction(lhs, rhs);
+    return {lhs, rhs};
 }
