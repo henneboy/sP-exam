@@ -1,6 +1,3 @@
-//
-// Created by Henri on 11/04/2024.
-//
 #include <memory>
 #include <string>
 #include <algorithm>
