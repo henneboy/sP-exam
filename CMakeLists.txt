@@ -18,6 +18,7 @@ add_executable(my_test vessel-test.cpp
         Vessel.hpp
         Vessel.hpp
         symbol_table.hpp
+        symbol_table_test.cpp
 )
 target_link_libraries(my_test PRIVATE doctest::doctest_with_main)
 add_test(NAME my_test COMMAND my_test)

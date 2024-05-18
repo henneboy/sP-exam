@@ -1,13 +1,7 @@
-/// Created by Marius Mikucionis <marius@cs.aau.dk>
-
-/** Unit tests for number_series */
-
-//#include "number_series.hpp"
+// Test for the ctor and functionality of the vessel example
 
 #include <doctest/doctest.h>
 #include "Vessel.hpp"
-
-//using namespace data_series;
 
 TEST_CASE("Vessel ctor test")
 {
