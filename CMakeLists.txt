@@ -11,7 +11,7 @@ add_executable(Run_main main.cpp
 target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
 
 enable_testing()
-add_executable(my_test number_series_test.cpp
+add_executable(my_test vessel-test.cpp
         Vessel.cpp
         Vessel.hpp
         Vessel.hpp)
