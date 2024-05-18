@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #include <unordered_map>
+#include "symbol_table.hpp"
 
 struct Var{};
 
@@ -52,8 +53,7 @@ struct Reaction{
 
 struct Vessel {
     std::string vesselName;
-    std::vector<Agent> agents{};
-    std::vector<unsigned> moleculeAmount{};
+    symbol_table<std::string, unsigned> table{};
     std::vector<Reaction> reactions{};
 
     explicit Vessel(std::string name){
@@ -65,10 +65,11 @@ struct Vessel {
     }
 
     Expr add(const std::string& agentName, unsigned initialAmount){
-        auto agent = Agent(agentName);
-        agents.push_back(agent);
-        moleculeAmount.push_back(initialAmount);
-        return Expr(std::make_shared<Agent>(agent));
+        auto success = table.Add(agentName, initialAmount);
+        if (!success){
+            throw std::invalid_argument("The following key already exists: " + agentName);
+        }
+        return Expr(std::make_shared<Agent>(agentName));
     }
 
     void add(const Reaction& r){

@@ -10,9 +10,9 @@ template <typename key, typename value>
 class [[maybe_unused]] symbol_table{
     std::unordered_map<key, value> table;
 public:
-    [[maybe_unused]] key Add(key k, value v){
-        table.insert(k, v);
-        return k;
+    [[maybe_unused]] bool Add(key k, value v){
+        auto [_, isSuccess] = table.emplace( std::make_pair(k, v));
+        return isSuccess;
     }
 };
 
