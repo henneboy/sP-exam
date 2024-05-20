@@ -7,7 +7,6 @@ include(doctest.cmake)
 add_executable(Run_main main.cpp
         Vessel.cpp
         Vessel.hpp
-        Vessel.hpp
         symbol_table.hpp
 )
 target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
@@ -15,7 +14,6 @@ target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
 enable_testing()
 add_executable(my_test vessel-test.cpp
         Vessel.cpp
-        Vessel.hpp
         Vessel.hpp
         symbol_table.hpp
         symbol_table_test.cpp
