@@ -75,6 +75,21 @@ struct Vessel {
     void add(const Reaction& r){
         reactions.push_back(r);
     }
+
+    void simulate(double duration){
+        double t = 0;
+        std::vector<double> delays(reactions.size());
+        while (t < duration){
+            delays = calcDelays();
+        }
+    }
+
+    std::vector<double> calcDelays(){
+        std::vector<double> delays(reactions.size());
+        for (auto reaction: reactions) {
+            // implement calculating delays
+        }
+    }
 };
 
 inline Expr operator+(const Expr& expr1, const Expr& expr2) {
