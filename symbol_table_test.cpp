@@ -2,8 +2,6 @@
 // Created by Henrik on 18-05-2024.
 //
 
-// Test for the ctor and functionality of the vessel example
-
 #include <doctest/doctest.h>
 #include <string>
 #include "symbol_table.hpp"
