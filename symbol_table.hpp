@@ -9,6 +9,7 @@
 
 template <typename key, typename value>
 class [[maybe_unused]] symbol_table{
+protected:
     std::unordered_map<key, value> table;
 public:
     [[maybe_unused]] bool Add(key k, value v){

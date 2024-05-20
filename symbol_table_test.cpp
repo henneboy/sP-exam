@@ -30,7 +30,7 @@ TEST_CASE("Symbol table look up tests (string, unsigned)")
     auto otherKey = "otherKey";
     auto value = 1U;
 
-    bool _ = table.Add(key, value);
+    table.Add(key, value);
     auto result1 = table.Lookup(key);
     CHECK(result1.has_value());
 
@@ -62,7 +62,7 @@ TEST_CASE("Symbol table look up tests (int, int)")
     auto otherKey = 2;
     auto value = 42;
 
-    bool _ = table.Add(key, value);
+    table.Add(key, value);
     auto result1 = table.Lookup(key);
     CHECK(result1.has_value());
 
