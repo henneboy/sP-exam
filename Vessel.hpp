@@ -20,6 +20,11 @@ struct Agent : Var{
     explicit Agent(std::string name){
         Name = std::move(name);
     }
+    template <typename Visitor>
+    void accept(Visitor&& v)
+    {
+        v.visit();
+    }
 };
 
 struct Term : Var{
@@ -28,6 +33,12 @@ struct Term : Var{
     Term(const std::shared_ptr<Var>& lhs, const std::shared_ptr<Var>& rhs){
         Lhs = lhs;
         Rhs = rhs;
+    }
+    template <typename Visitor>
+    void accept(Visitor&& v)
+    {
+        v.visit(Lhs);
+        v.visit(Rhs);
     }
 };
 
@@ -38,17 +49,33 @@ struct PartialReaction{
     }
     std::shared_ptr<Var> Lhs;
     double delay;
+
 };
 
 struct Reaction{
     std::shared_ptr<Var> Lhs;
     double delay;
     std::shared_ptr<Var> Rhs;
+
     Reaction(const PartialReaction& p, const Expr& rhs){
         Lhs = p.Lhs;
         delay = p.delay;
         Rhs = rhs.var;
     }
+
+    template <typename Visitor>
+    void accept(Visitor&& v) const
+    {
+        //v.visit(Lhs);
+        //v.visit(delay);
+        //v.visit(Rhs);
+    }
+};
+
+struct ReactionType{
+    std::vector<Agent> inputs;
+    const double delay;
+    std::vector<Agent> outputs;
 };
 
 struct Vessel {
