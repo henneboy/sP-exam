@@ -71,8 +71,7 @@ struct Vessel {
     reactant_store<std::string, unsigned> table{};
     std::unordered_map<unsigned, Reaction> reactions{};
     unsigned reactionId = 0;
-    std::random_device rd;
-    std::mt19937 gen(1);
+
 
     explicit Vessel(std::string name){
         vesselName = std::move(name);
@@ -92,55 +91,6 @@ struct Vessel {
 
     void add(const Reaction& r){
         reactions.emplace(reactionId++, r);
-    }
-};
-
-struct Simulator{
-    Simulator(int seed, Vessel& v) : gen(seed), vessel(v) {}
-    std::mt19937 gen;
-    Vessel& vessel;
-    void simulate(double duration){
-        double t = 0;
-        while (t < duration){
-            auto currentReaction = vessel.reactions.find(nextReaction())->second;
-            performReaction(currentReaction);
-            vessel.table.getState();
-        }
-    }
-
-    void performReaction(const Reaction& r){
-        for (auto& input: r.inputs) {
-            vessel.table.decrement(input);
-        }
-        for (auto& output: r.outputs) {
-            vessel.table.increment(output);
-        }
-    }
-
-    unsigned nextReaction(){
-        unsigned nextReaction = 0;
-        double shortestDelay = -1;
-        for (const auto& reaction: vessel.reactions) {
-            double productOfInputs = 1;
-            bool inputExists = false;
-            for (const auto& input: reaction.second.inputs){
-                auto inputLevel = vessel.table.Lookup(input);
-                if (!inputLevel.has_value()){
-                    throw std::invalid_argument("Table lookup failed for:" + input);
-                }
-                productOfInputs *= inputLevel.value();
-                inputExists = true;
-            }
-            if (!inputExists){
-                continue;
-            }
-            std::exponential_distribution<> d(productOfInputs * reaction.second.delay);
-            double delay = d(gen);
-            if (delay < shortestDelay){
-                shortestDelay = delay;
-                nextReaction = reaction.first;
-            }
-        }
     }
 };
 

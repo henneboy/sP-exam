@@ -17,7 +17,7 @@ public:
         return isSuccess;
     }
 
-    std::optional<value> Lookup(key k) {
+    std::optional<value> Lookup(key k) const {
         auto it = table.find(k);
         if (it != table.end()) {
             return it->second; // Found: return the associated value
