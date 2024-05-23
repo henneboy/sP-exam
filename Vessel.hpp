@@ -7,75 +7,61 @@
 #include <unordered_map>
 #include "symbol_table.hpp"
 
-struct Var{};
+struct Environment{};
 
-struct Expr{
-    std::shared_ptr<Var> var;
-};
-
-struct Environment : Var{};
-
-struct Agent : Var{
+struct Agent{
     std::string Name;
-    explicit Agent(std::string name){
-        Name = std::move(name);
-    }
-    template <typename Visitor>
-    void accept(Visitor&& v)
-    {
-        v.visit();
-    }
+    explicit Agent(std::string name) : Name{std::move(name)}{}
 };
 
-struct Term : Var{
-    std::shared_ptr<Var> Lhs;
-    std::shared_ptr<Var> Rhs;
-    Term(const std::shared_ptr<Var>& lhs, const std::shared_ptr<Var>& rhs){
-        Lhs = lhs;
-        Rhs = rhs;
-    }
-    template <typename Visitor>
-    void accept(Visitor&& v)
-    {
-        v.visit(Lhs);
-        v.visit(Rhs);
+struct Term{
+    std::optional<std::shared_ptr<Term>> LhsTerm;
+    std::optional<std::shared_ptr<Agent>> LhsAgent;
+    std::optional<std::shared_ptr<Agent>> Rhs;
+
+    Term(const std::shared_ptr<Term>& lhs, const std::shared_ptr<Agent>& rhs) : LhsTerm(lhs), Rhs(rhs) {}
+
+    Term(const std::shared_ptr<Agent>& lhs, const std::shared_ptr<Agent>& rhs) : LhsAgent(lhs), Rhs(rhs){}
+
+    explicit Term(const std::shared_ptr<Agent>& lhs) : LhsAgent(lhs){}
+
+    explicit Term(Environment _){}
+
+    [[nodiscard]] std::vector<std::string> GetAgents() const{
+        std::vector<std::string> agents{};
+        if (LhsTerm.has_value()){
+            auto temp = LhsTerm.value()->GetAgents();
+            agents.insert(agents.end(), temp.begin(), temp.end());
+        }
+        if (LhsAgent.has_value()){
+            agents.push_back(LhsAgent.value()->Name);
+        }
+        if (Rhs.has_value()){
+            agents.push_back(Rhs.value()->Name);
+        }
+        return agents;
     }
 };
 
 struct PartialReaction{
-    PartialReaction(const std::shared_ptr<Var>& lhs, double d){
-        Lhs = lhs;
-        delay = d;
-    }
-    std::shared_ptr<Var> Lhs;
+    Term Lhs;
     double delay;
-
+    PartialReaction(Term  lhs, double d) : Lhs{std::move(lhs)}, delay{d}{}
 };
 
 struct Reaction{
-    std::shared_ptr<Var> Lhs;
+    std::vector<std::string> inputs{};
+    std::vector<std::string> outputs{};
     double delay;
-    std::shared_ptr<Var> Rhs;
 
-    Reaction(const PartialReaction& p, const Expr& rhs){
-        Lhs = p.Lhs;
+    Reaction(const PartialReaction& p, const Term& rhs){
+        auto lhs = p.Lhs.GetAgents();
+        inputs.insert(inputs.end(), lhs.begin(), lhs.end());
         delay = p.delay;
-        Rhs = rhs.var;
-    }
+        auto rhsAgents = rhs.GetAgents();
+        inputs.insert(inputs.end(), rhsAgents.begin(), rhsAgents.end());
 
-    template <typename Visitor>
-    void accept(Visitor&& v) const
-    {
-        //v.visit(Lhs);
-        //v.visit(delay);
-        //v.visit(Rhs);
     }
-};
-
-struct ReactionType{
-    std::vector<Agent> inputs;
-    const double delay;
-    std::vector<Agent> outputs;
 };
 
 struct Vessel {
@@ -87,16 +73,16 @@ struct Vessel {
         vesselName = std::move(name);
     }
 
-    static Expr environment(){
-        return Expr(std::make_shared<Var>(Environment{}));
+    static Environment environment(){
+        return Environment{};
     }
 
-    Expr add(const std::string& agentName, unsigned initialAmount){
+    std::shared_ptr<Agent> add(const std::string& agentName, unsigned initialAmount){
         auto success = table.Add(agentName, initialAmount);
         if (!success){
             throw std::invalid_argument("The following key already exists: " + agentName);
         }
-        return Expr(std::make_shared<Agent>(agentName));
+        return std::make_shared<Agent>(agentName);
     }
 
     void add(const Reaction& r){
@@ -119,14 +105,26 @@ struct Vessel {
     }
 };
 
-inline Expr operator+(const Expr& expr1, const Expr& expr2) {
-    return {std::make_shared<Term>(Term(expr1.var, expr2.var))};
-}
-
-inline PartialReaction operator>>(const Expr& lhs, const double delay) {
-    return {lhs.var, delay};
-}
-
-inline Reaction operator>>=(const PartialReaction& lhs, const Expr& rhs) {
+inline Term operator+(const std::shared_ptr<Agent>& lhs, const std::shared_ptr<Agent>& rhs) {
     return {lhs, rhs};
+}
+
+inline std::shared_ptr<Term> operator+(const Environment& env) {
+    return std::make_shared<Term>(Term(env));
+}
+
+inline PartialReaction operator>>(const std::shared_ptr<Agent>& lhs, const double delay) {
+    return PartialReaction{Term(lhs), delay};
+}
+
+inline PartialReaction operator>>(const Term& lhs, const double delay) {
+    return {lhs, delay};
+}
+
+inline Reaction operator>>=(const PartialReaction& lhs, const Term& rhs) {
+    return Reaction{lhs, rhs};
+}
+
+inline Reaction operator>>=(const PartialReaction& lhs, const std::shared_ptr<Agent>& rhs) {
+    return Reaction{lhs, Term(rhs)};
 }
