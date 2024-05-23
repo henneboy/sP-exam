@@ -31,6 +31,10 @@ public:
     void decrement(key k){
         crement(k, false);
     }
+
+    std::unordered_map<key, value> getState(){
+        return this->table;
+    }
 };
 
 #endif //SHAPE_EXAMPLE_REACTANT_STORE_H
