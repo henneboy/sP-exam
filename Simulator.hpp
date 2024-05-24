@@ -9,7 +9,6 @@
 #include <memory>
 #include <unordered_map>
 #include <random>
-//#include "vessel.hpp"
 
 #ifndef SHAPE_EXAMPLE_SIMULATOR_HPP
 #define SHAPE_EXAMPLE_SIMULATOR_HPP

@@ -12,9 +12,18 @@ add_executable(Run_main main.cpp
         reactant-store.hpp
         Simulator.hpp
         Observer.hpp
+        CsvPlotter.hpp
+        build_circadian_rhythm.cpp
 )
 target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
 target_link_libraries(Run_main PUBLIC matplot)
+
+add_executable(pretty_printing run_pretty_printing.cpp
+        Vessel.hpp
+        symbol_table.hpp
+        reactant-store.hpp
+        build_circadian_rhythm.cpp
+)
 
 enable_testing()
 add_executable(my_test vessel-test.cpp
@@ -27,6 +36,8 @@ add_executable(my_test vessel-test.cpp
         PrintingVisitorTest.cpp
         Simulator.hpp
         Observer.hpp
+        CsvPlotter.hpp
+        build_circadian_rhythm.cpp
 )
 target_link_libraries(my_test PRIVATE doctest::doctest_with_main)
 #target_link_libraries(my_test PUBLIC matplot)

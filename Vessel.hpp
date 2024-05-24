@@ -9,6 +9,9 @@
 #include "symbol_table.hpp"
 #include "reactant-store.hpp"
 
+#ifndef SP_EXAM_VESSEL_HPP
+#define SP_EXAM_VESSEL_HPP
+
 struct Environment{
     constexpr static const std::string Name = "Env";
 };
@@ -153,3 +156,5 @@ inline Reaction operator>>=(const PartialReaction& lhs, const std::shared_ptr<Ag
 inline Reaction operator>>=(const PartialReaction& lhs, Environment rhs) {
     return Reaction{lhs, Term(rhs)};
 }
+
+#endif //SP_EXAM_VESSEL_HPP

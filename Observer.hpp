@@ -14,7 +14,6 @@
 #include <memory>
 #include <fstream>
 
-
 struct SimulationObserver{
 public:
     virtual void accept(const std::unordered_map<std::string, unsigned>& s, double t) = 0;
