@@ -7,7 +7,6 @@
 #include "../build_circadian_rhythm.h++"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
     auto v = circadian_rhythm();
     std::cout << "Finished building vessel:" << v.vesselName << std::endl;
     std::cout << "Printing reactions of vessel:" << std::endl;

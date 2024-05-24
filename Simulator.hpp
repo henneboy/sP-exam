@@ -32,7 +32,7 @@ public:
         std::cout << "Starting simulation" << std::endl;
         double t = 0;
         unsigned iterationCounter = 0;
-        unsigned loggingInterval = 1000;
+        unsigned loggingInterval = 5000;
         while (t < duration){
             auto [reactionId, delay] = nextReaction(vessel);
             auto currentReaction = vessel.reactions.find(reactionId)->second;
