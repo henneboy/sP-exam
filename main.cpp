@@ -1,5 +1,7 @@
 #include <iostream>
 #include "vessel.hpp"
+#include "Simulator.hpp"
+#include "Observer.hpp"
 
 Vessel circadian_rhythm();
 
@@ -7,6 +9,12 @@ int main() {
     std::cout << "Hello, World!" << std::endl;
     auto v = circadian_rhythm();
     std::cout << "Finished building vessel:" << v.vesselName << std::endl;
+    v.Print(std::cout);
+
+    Simulator sim{1};
+    StateToFileWriter toFileWriter{"output.csv"};
+    sim.simulate(100.0, v, toFileWriter);
+
     return 0;
 }
 

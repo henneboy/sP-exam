@@ -9,7 +9,9 @@
 #include "symbol_table.hpp"
 #include "reactant-store.hpp"
 
-struct Environment{};
+struct Environment{
+    constexpr static const std::string Name = "Env";
+};
 
 struct Agent{
     std::string Name;
@@ -61,8 +63,30 @@ struct Reaction{
         inputs.insert(inputs.end(), lhs.begin(), lhs.end());
         delay = p.delay;
         auto rhsAgents = rhs.GetAgents();
-        inputs.insert(inputs.end(), rhsAgents.begin(), rhsAgents.end());
+        outputs.insert(outputs.end(), rhsAgents.begin(), rhsAgents.end());
+    }
 
+    [[nodiscard]] std::string Print() const {
+        std::string result;
+        for (const auto& input: inputs) {
+            result+= input;
+            if (!(input == inputs.back())){
+                result+= "+";
+            }
+        }
+        result+="--";
+        result+=std::to_string(delay);
+        result+="->";
+        if (outputs.empty()){
+            result+=Environment::Name;
+        }
+        for (const auto& output: outputs) {
+            result+= output;
+            if (!(output == outputs.back())){
+                result+= "+";
+            }
+        }
+        return result;
     }
 };
 
@@ -92,6 +116,13 @@ struct Vessel {
     void add(const Reaction& r){
         reactions.emplace(reactionId++, r);
     }
+
+    std::ostream& Print(std::ostream& os){
+        for (const auto& reaction: reactions) {
+            os << reaction.second.Print() << std::endl;
+        }
+        return os;
+    }
 };
 
 
@@ -116,5 +147,9 @@ inline Reaction operator>>=(const PartialReaction& lhs, const Term& rhs) {
 }
 
 inline Reaction operator>>=(const PartialReaction& lhs, const std::shared_ptr<Agent>& rhs) {
+    return Reaction{lhs, Term(rhs)};
+}
+
+inline Reaction operator>>=(const PartialReaction& lhs, Environment rhs) {
     return Reaction{lhs, Term(rhs)};
 }
