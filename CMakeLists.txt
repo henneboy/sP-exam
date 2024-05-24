@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.27)
 project(sP-exam)
 
 set(CMAKE_CXX_STANDARD 23)
-include(cmake/doctest.cmake)
-include(cmake/matplotplusplus.cmake)
+include(Cmake/doctest.cmake)
+include(Cmake/matplotplusplus.cmake)
 
 
 add_executable(Run_main Executables/main.cpp
