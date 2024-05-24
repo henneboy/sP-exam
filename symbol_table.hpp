@@ -12,7 +12,7 @@ class [[maybe_unused]] symbol_table{
 protected:
     std::unordered_map<key, value> table;
 public:
-    [[maybe_unused]] bool Add(key k, value v){
+    [[maybe_unused]] bool Store(key k, value v){
         auto [_, isSuccess] = table.insert( std::make_pair(k, v));
         return isSuccess;
     }

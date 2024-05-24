@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.27)
 project(sP-exam)
 
 set(CMAKE_CXX_STANDARD 23)
-include(doctest.cmake)
-include(matplotplusplus.cmake)
+include(cmake/doctest.cmake)
+include(cmake/matplotplusplus.cmake)
 
 
-add_executable(Run_main main.cpp
+add_executable(Run_main Executables/main.cpp
         Vessel.hpp
         symbol_table.hpp
         reactant-store.hpp
@@ -18,7 +18,7 @@ add_executable(Run_main main.cpp
 target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
 target_link_libraries(Run_main PUBLIC matplot)
 
-add_executable(pretty_printing run_pretty_printing.cpp
+add_executable(pretty_printing Executables/run_pretty_printing.cpp
         Vessel.hpp
         symbol_table.hpp
         reactant-store.hpp
@@ -26,14 +26,14 @@ add_executable(pretty_printing run_pretty_printing.cpp
 )
 
 enable_testing()
-add_executable(my_test vessel-test.cpp
+add_executable(my_test Tests/vessel-test.cpp
         Vessel.hpp
         symbol_table.hpp
-        symbol_table_test.cpp
+        Tests/symbol_table_test.cpp
         reactant-store.hpp
-        reactant_store_test.cpp
+        Tests/reactant_store_test.cpp
         printingVisitor.h++
-        PrintingVisitorTest.cpp
+        Tests/PrintingVisitorTest.cpp
         Simulator.hpp
         Observer.hpp
         CsvPlotter.hpp

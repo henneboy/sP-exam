@@ -35,7 +35,6 @@ public:
         unsigned loggingInterval = 1000;
         while (t < duration){
             auto [reactionId, delay] = nextReaction(vessel);
-            //std::cout << "Reaction: " << reactionId << " delay: " << delay << std::endl;
             auto currentReaction = vessel.reactions.find(reactionId)->second;
             t += delay;
             performReaction(vessel, currentReaction);

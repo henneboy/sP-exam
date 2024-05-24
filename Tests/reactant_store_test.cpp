@@ -2,9 +2,9 @@
 // Created by Henrik on 20-05-2024.
 //
 
-#include <doctest/doctest.h>
+#include "doctest/doctest.h"
 #include <string>
-#include "reactant-store.hpp"
+#include "../reactant-store.hpp"
 
 // Ensure it still has the functionality of the symbol-table ----------------------------
 
@@ -15,13 +15,13 @@ TEST_CASE("reactant-store add tests (string, unsigned)")
     auto otherKey = "otherKey";
     auto value = 1U;
 
-    bool success1 = table.Add(key, value);
+    bool success1 = table.Store(key, value);
     CHECK(success1);
 
-    bool success2 = table.Add(otherKey, value);
+    bool success2 = table.Store(otherKey, value);
     CHECK(success2);
 
-    bool success3 = table.Add(key, value);
+    bool success3 = table.Store(key, value);
     CHECK(!success3);
 }
 
@@ -32,7 +32,7 @@ TEST_CASE("reactant-store look up tests (string, unsigned)")
     auto otherKey = "otherKey";
     auto value = 1U;
 
-    table.Add(key, value);
+    table.Store(key, value);
     auto result1 = table.Lookup(key);
     CHECK(result1.has_value());
 
@@ -47,13 +47,13 @@ TEST_CASE("reactant-store add tests (int, int)")
     auto otherKey = 2;
     auto value = 42;
 
-    bool success1 = table.Add(key, value);
+    bool success1 = table.Store(key, value);
     CHECK(success1);
 
-    bool success2 = table.Add(otherKey, value);
+    bool success2 = table.Store(otherKey, value);
     CHECK(success2);
 
-    bool success3 = table.Add(key, value);
+    bool success3 = table.Store(key, value);
     CHECK(!success3);
 }
 
@@ -64,7 +64,7 @@ TEST_CASE("reactant-store look up tests (int, int)")
     auto otherKey = 2;
     auto value = 42;
 
-    bool _ = table.Add(key, value);
+    bool _ = table.Store(key, value);
     auto result1 = table.Lookup(key);
     CHECK(result1.has_value());
     CHECK((value == result1.value()));
@@ -79,7 +79,7 @@ TEST_CASE("reactant-store increment test (int, int)")
     auto key = 1;
     auto value = 42;
 
-    table.Add(key, value);
+    table.Store(key, value);
     auto result1 = table.Lookup(key);
     CHECK(result1.has_value());
     CHECK((value == result1.value()));
@@ -95,7 +95,7 @@ TEST_CASE("reactant-store decrement test (int, int)")
     auto key = 1;
     auto value = 42;
 
-    table.Add(key, value);
+    table.Store(key, value);
     auto result1 = table.Lookup(key);
     CHECK(result1.has_value());
     CHECK((value == result1.value()));

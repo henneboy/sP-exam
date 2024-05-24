@@ -1,20 +1,17 @@
+//
+// Created by Henri on 24/05/2024.
+//
 
 #include <iostream>
-#include "vessel.hpp"
-#include "Simulator.hpp"
-#include "Observer.hpp"
-#include "build_circadian_rhythm.h++"
+#include "../Vessel.hpp"
+#include "../build_circadian_rhythm.h++"
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
     auto v = circadian_rhythm();
     std::cout << "Finished building vessel:" << v.vesselName << std::endl;
+    std::cout << "Printing reactions of vessel:" << std::endl;
     v.Print(std::cout);
-
-    Simulator sim{1};
-    StateToFileWriter toFileWriter{"output.csv"};
-    sim.simulate(100.0, v, toFileWriter);
-
     return 0;
 }
 

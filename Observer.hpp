@@ -28,8 +28,9 @@ struct StateToFileWriter : public SimulationObserver{
 
     void accept(const std::unordered_map<std::string, unsigned>& s, const double t) override{
         if (!hasWrittenHeader){
+            file << "time";
             for (auto& pair : s){
-                file << pair.first;
+                file << ";" << pair.first;
             }
             file << std::endl;
             hasWrittenHeader = true;

@@ -1,7 +1,7 @@
 // Test for the ctor and functionality of the vessel example
 
-#include <doctest/doctest.h>
-#include "Vessel.hpp"
+#include "doctest/doctest.h"
+#include "../Vessel.hpp"
 
 TEST_CASE("Vessel ctor test")
 {
