@@ -47,7 +47,7 @@ public:
     }
 
 private:
-    static void performReaction(Vessel& vessel, const Reaction& r){
+    static void performReaction(Vessel& vessel, const Reaction& r) {
         for (auto& input: r.inputs) {
             vessel.table.decrement(input);
         }
@@ -56,39 +56,37 @@ private:
         }
     }
 
-    std::tuple<unsigned, double> nextReaction(const Vessel& vessel){
+    std::tuple<unsigned, double> nextReaction(const Vessel& vessel) {
         unsigned nextReaction = 0;
         double shortestDelay = std::numeric_limits<double>::max();
         bool foundViableReaction = false;
         for (const auto& reaction: vessel.reactions) {
-            double productOfInputs = 1;
-            bool missingInput = false;
-            for (const auto& input: reaction.second.inputs){
-                auto inputLevel = vessel.table.Lookup(input);
-                if (!inputLevel.has_value()){
-                    throw std::invalid_argument("Table lookup failed for:" + input);
+            auto delay = calculateDelay(reaction.second, vessel);
+            if (delay.has_value()){
+                foundViableReaction = true;
+                if (delay.value() < shortestDelay){
+                    shortestDelay = delay.value();
+                    nextReaction = reaction.first;
                 }
-                if (inputLevel.value() == 0){
-                    missingInput = true;
-                    break;
-                }
-                productOfInputs *= inputLevel.value();
-            }
-            if (missingInput){
-                continue;
-            }
-            foundViableReaction = true;
-            std::exponential_distribution<> d(productOfInputs * reaction.second.delay);
-            double delay = d(gen);
-            if (delay < shortestDelay){
-                shortestDelay = delay;
-                nextReaction = reaction.first;
             }
         }
         if (!foundViableReaction){
             throw std::logic_error("No reaction available for simulation.");
         }
         return {nextReaction, shortestDelay};
+    }
+
+    std::optional<double> calculateDelay(const Reaction& reaction, const Vessel& vessel){
+        double productOfInputs = 1;
+        for (const auto& input: reaction.inputs){
+            auto inputLevel = vessel.table.lookup(input);
+            if (inputLevel == 0){
+                return std::nullopt;
+            }
+            productOfInputs *= inputLevel;
+        }
+        std::exponential_distribution<> d(productOfInputs * reaction.delay);
+        return d(gen);
     }
 };
 

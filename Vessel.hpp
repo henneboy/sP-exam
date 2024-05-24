@@ -109,7 +109,7 @@ struct Vessel {
     }
 
     std::shared_ptr<Agent> add(const std::string& agentName, unsigned initialAmount){
-        auto success = table.Store(agentName, initialAmount);
+        auto success = table.store(agentName, initialAmount);
         if (!success){
             throw std::invalid_argument("The following key already exists: " + agentName);
         }
