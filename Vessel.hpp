@@ -138,7 +138,7 @@ inline std::shared_ptr<Term> operator+(const Environment& env) {
 }
 
 inline PartialReaction operator>>(const std::shared_ptr<Agent>& lhs, const double delay) {
-    return PartialReaction{Term(lhs), delay};
+    return {Term(lhs), delay};
 }
 
 inline PartialReaction operator>>(const Term& lhs, const double delay) {
@@ -146,15 +146,15 @@ inline PartialReaction operator>>(const Term& lhs, const double delay) {
 }
 
 inline Reaction operator>>=(const PartialReaction& lhs, const Term& rhs) {
-    return Reaction{lhs, rhs};
+    return {lhs, rhs};
 }
 
 inline Reaction operator>>=(const PartialReaction& lhs, const std::shared_ptr<Agent>& rhs) {
-    return Reaction{lhs, Term(rhs)};
+    return {lhs, Term(rhs)};
 }
 
 inline Reaction operator>>=(const PartialReaction& lhs, Environment rhs) {
-    return Reaction{lhs, Term(rhs)};
+    return {lhs, Term(rhs)};
 }
 
 #endif //SP_EXAM_VESSEL_HPP

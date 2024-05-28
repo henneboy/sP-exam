@@ -5,14 +5,9 @@
 #ifndef SP_EXAM_PLOTTER_HPP
 #define SP_EXAM_PLOTTER_HPP
 
-#include <fstream>
-#include <memory>
 #include <string>
-#include <algorithm>
-#include <utility>
 #include <vector>
 #include <unordered_map>
-#include <random>
 #include <set>
 #include <matplot/matplot.h>
 
