@@ -32,10 +32,8 @@ TEST_CASE("Symbol table look up tests (string, unsigned)")
 
     table.store(key, value);
     auto result1 = table.lookup(key);
-    CHECK(result1.has_value());
-
-    auto result2 = table.lookup(otherKey);
-    CHECK(!result2.has_value());
+    CHECK((result1 == value));
+    CHECK_THROWS_AS(table.lookup(otherKey), std::invalid_argument);
 }
 
 TEST_CASE("Symbol table add tests (int, int)")
@@ -64,8 +62,6 @@ TEST_CASE("Symbol table look up tests (int, int)")
 
     table.store(key, value);
     auto result1 = table.lookup(key);
-    CHECK(result1.has_value());
-
-    auto result2 = table.lookup(otherKey);
-    CHECK(!result2.has_value());
+    CHECK((result1 == value));
+    CHECK_THROWS_AS(table.lookup(otherKey), std::invalid_argument);
 }

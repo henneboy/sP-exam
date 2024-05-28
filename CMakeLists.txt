@@ -12,7 +12,7 @@ add_executable(Run_main Executables/main.cpp
         reactant-store.hpp
         Simulator.hpp
         Observer.hpp
-        CsvPlotter.hpp
+        Plotter.hpp
         build_circadian_rhythm.cpp
 )
 target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
@@ -36,7 +36,7 @@ add_executable(my_test Tests/vessel-test.cpp
         Tests/PrintingVisitorTest.cpp
         Simulator.hpp
         Observer.hpp
-        CsvPlotter.hpp
+        Plotter.hpp
         build_circadian_rhythm.cpp
 )
 target_link_libraries(my_test PRIVATE doctest::doctest_with_main)

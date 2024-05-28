@@ -11,8 +11,9 @@ int main() {
 
     std::cout << "Running simulation" << std::endl;
     Simulator sim{1};
-    StateToFileWriter toFileWriter{"output.csv"};
-    sim.simulate(100.0, v, toFileWriter);
+    std::vector<std::string> agentsOfInterest = {"A", "C", "R"};
+    StateMemorizer memorizer{agentsOfInterest};
+    sim.simulate(100.0, v, memorizer);
 
     return 0;
 }

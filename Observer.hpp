@@ -7,6 +7,7 @@
 
 #include <random>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 #include <utility>
 #include <algorithm>
@@ -19,27 +20,28 @@ public:
     virtual void accept(const std::unordered_map<std::string, unsigned>& s, double t) = 0;
 };
 
-struct StateToFileWriter : public SimulationObserver{
-    bool hasWrittenHeader = false;
-    std::ofstream file;
-    explicit StateToFileWriter(const std::string& filepath){
-        file = std::ofstream {filepath};
-    }
+struct DataPoint{
+    explicit DataPoint(double t) : time{t}{}
+    double time;
+    std::unordered_map<std::string, unsigned> state;
+};
+
+struct StateMemorizer : public SimulationObserver{
+    std::vector<std::string> agentsOfInterest;
+    std::vector<DataPoint> data;
+
+    explicit StateMemorizer(std::vector<std::string> agentsOfInterest) : agentsOfInterest(std::move(agentsOfInterest)){}
 
     void accept(const std::unordered_map<std::string, unsigned>& s, const double t) override{
-        if (!hasWrittenHeader){
-            file << "time";
-            for (auto& pair : s){
-                file << ";" << pair.first;
+        DataPoint d{t};
+        for (auto& agentOfInterest: agentsOfInterest) {
+            if (!s.contains(agentOfInterest)){
+                throw std::logic_error("Could not find: " + agentOfInterest + " in state.");
             }
-            file << std::endl;
-            hasWrittenHeader = true;
+            auto level = s.at(agentOfInterest);
+            d.state.emplace(agentOfInterest, level);
         }
-        file << t;
-        for (auto& pair : s){
-            file << ";" << pair.second;
-        }
-        file << std::endl;
+        data.push_back(d);
     }
 };
 

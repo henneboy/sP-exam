@@ -3,6 +3,7 @@
 //
 #include <unordered_map>
 #include <optional>
+#include <stdexcept>
 
 #ifndef SHAPE_EXAMPLE_SYMBOL_TABLE_H
 #define SHAPE_EXAMPLE_SYMBOL_TABLE_H
