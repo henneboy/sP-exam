@@ -9,15 +9,10 @@
 #include <memory>
 #include <unordered_map>
 #include <random>
+#include "Meta/CanAcceptState.hpp"
 
 #ifndef SHAPE_EXAMPLE_SIMULATOR_HPP
 #define SHAPE_EXAMPLE_SIMULATOR_HPP
-
-template <typename T>
-concept CanAcceptState = requires(T&& d, std::unordered_map<std::string, unsigned>& s, const double t) { // given an instance c of type T&&
-{
-    d.accept(s, t) }; // must be able to accept v and t
-};
 
 class Simulator{
     std::random_device rd;

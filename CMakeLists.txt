@@ -14,6 +14,7 @@ add_executable(Run_main Executables/main.cpp
         Observer.hpp
         Plotter.hpp
         build_circadian_rhythm.cpp
+        Meta/canAcceptVisitor.hpp
 )
 target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
 target_link_libraries(Run_main PUBLIC matplot)
@@ -33,11 +34,11 @@ add_executable(my_test Tests/vessel-test.cpp
         reactant-store.hpp
         Tests/reactant_store_test.cpp
         printingVisitor.h++
-        Tests/PrintingVisitorTest.cpp
         Simulator.hpp
         Observer.hpp
         Plotter.hpp
         build_circadian_rhythm.cpp
+        Meta/canAcceptVisitor.hpp
 )
 target_link_libraries(my_test PRIVATE doctest::doctest_with_main)
 #target_link_libraries(my_test PUBLIC matplot)

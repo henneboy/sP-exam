@@ -13,17 +13,13 @@
 #include <algorithm>
 #include <string>
 #include <memory>
-#include <fstream>
+#include "DataPoint.hpp"
+#include "Plotter.hpp"
+#include "Meta/canAcceptVisitor.hpp"
 
 struct SimulationObserver{
 public:
     virtual void accept(const std::unordered_map<std::string, unsigned>& s, double t) = 0;
-};
-
-struct DataPoint{
-    explicit DataPoint(double t) : time{t}{}
-    double time;
-    std::unordered_map<std::string, unsigned> state;
 };
 
 struct StateMemorizer : public SimulationObserver{
@@ -42,6 +38,11 @@ struct StateMemorizer : public SimulationObserver{
             d.state.emplace(agentOfInterest, level);
         }
         data.push_back(d);
+    }
+
+    template <typename T> requires CanAcceptVisitor<StateMemorizer, T>
+    void accept(T plotter){
+        plotter.accept(data);
     }
 };
 
