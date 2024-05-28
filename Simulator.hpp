@@ -29,16 +29,17 @@ public:
         unsigned iterationCounter = 0;
         unsigned loggingInterval = 5000;
         while (t < duration){
+            observer.accept(vessel.table.getState(), t);
             auto [reactionId, delay] = nextReaction(vessel);
             auto currentReaction = vessel.reactions.find(reactionId)->second;
             t += delay;
             performReaction(vessel, currentReaction);
-            observer.accept(vessel.table.getState(), t);
             iterationCounter++;
             if (iterationCounter % loggingInterval == 0){
                 std::cout << "Time: " << t << " of total: " << duration << std::endl;
             }
         }
+        observer.accept(vessel.table.getState(), t);
     }
 
 private:

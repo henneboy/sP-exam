@@ -40,9 +40,9 @@ struct StateMemorizer : public SimulationObserver{
         data.push_back(d);
     }
 
-    template <typename T> requires CanAcceptVisitor<StateMemorizer, T>
-    void accept(T plotter){
-        plotter.accept(data);
+    template <typename T> requires CanAcceptVisitor<T, std::vector<DataPoint>>
+    void accept(T visitor){
+        visitor.visit(data);
     }
 };
 
