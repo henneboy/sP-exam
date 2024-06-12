@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <random>
 #include "symbol_table.hpp"
-#include "reactant-store.hpp"
+#include "reactant_store.hpp"
 
 #ifndef SP_EXAM_VESSEL_HPP
 #define SP_EXAM_VESSEL_HPP

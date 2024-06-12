@@ -9,7 +9,7 @@ include(Cmake/matplotplusplus.cmake)
 add_executable(Run_main Executables/main.cpp
         Vessel.hpp
         symbol_table.hpp
-        reactant-store.hpp
+        reactant_store.hpp
         Simulator.hpp
         Observer.hpp
         Plotter.hpp
@@ -26,7 +26,7 @@ target_link_libraries(Run_main PUBLIC matplot)
 add_executable(pretty_printing Executables/run_pretty_printing.cpp
         Vessel.hpp
         symbol_table.hpp
-        reactant-store.hpp
+        reactant_store.hpp
         Examples/build_circadian_rhythm.h++
         Examples/build_circadian_rhythm.cpp
         Examples/build_seihr.h++
@@ -36,7 +36,7 @@ add_executable(pretty_printing Executables/run_pretty_printing.cpp
 add_executable(make_dot_file Executables/make_dot_file.cpp
         Vessel.hpp
         symbol_table.hpp
-        reactant-store.hpp
+        reactant_store.hpp
         ReactionsToDot.hpp
         Examples/build_circadian_rhythm.h++
         Examples/build_circadian_rhythm.cpp
@@ -45,11 +45,11 @@ add_executable(make_dot_file Executables/make_dot_file.cpp
 )
 
 enable_testing()
-add_executable(my_test Tests/vessel-test.cpp
+add_executable(my_test Tests/vessel_test.cpp
         Vessel.hpp
         symbol_table.hpp
         Tests/symbol_table_test.cpp
-        reactant-store.hpp
+        reactant_store.hpp
         Tests/reactant_store_test.cpp
         printingVisitor.h++
         Simulator.hpp

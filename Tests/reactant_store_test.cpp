@@ -4,7 +4,7 @@
 
 #include "doctest/doctest.h"
 #include <string>
-#include "../reactant-store.hpp"
+#include "../reactant_store.hpp"
 
 // Ensure it still has the functionality of the symbol-table ----------------------------
 
