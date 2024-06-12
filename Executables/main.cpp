@@ -4,6 +4,8 @@
 #include "../Simulator.hpp"
 #include "../Observer.hpp"
 #include "../Examples/build_circadian_rhythm.h++"
+#include "../StateMemorizer.hpp"
+#include "../Plotter.hpp"
 
 int main() {
     auto v = circadian_rhythm();
