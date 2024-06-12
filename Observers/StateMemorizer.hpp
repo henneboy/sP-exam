@@ -7,8 +7,8 @@
 
 #include <vector>
 #include "Observer.hpp"
-#include "DataPoint.hpp"
-#include "Meta/canAcceptVisitor.hpp"
+#include "../DataPoint.hpp"
+#include "../Meta/canAcceptVisitor.hpp"
 
 struct StateMemorizer : public SimulationObserver{
     std::vector<std::string> agentsOfInterest;
@@ -26,11 +26,6 @@ struct StateMemorizer : public SimulationObserver{
             d.state.emplace(agentOfInterest, level);
         }
         data.push_back(d);
-    }
-
-    template <typename T> requires CanAcceptVisitor<T, std::vector<DataPoint>>
-    void accept(T visitor){
-        visitor.visit(data);
     }
 };
 

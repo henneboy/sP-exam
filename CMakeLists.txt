@@ -11,7 +11,7 @@ add_executable(Run_main Executables/main.cpp
         symbol_table.hpp
         reactant_store.hpp
         Simulator.hpp
-        Observer.hpp
+        Observers/Observer.hpp
         Plotter.hpp
         Meta/canAcceptVisitor.hpp
         Examples/build_circadian_rhythm.h++
@@ -53,7 +53,7 @@ add_executable(my_test Tests/vessel_test.cpp
         Tests/reactant_store_test.cpp
         printingVisitor.h++
         Simulator.hpp
-        Observer.hpp
+        Observers/Observer.hpp
         Plotter.hpp
         Meta/canAcceptVisitor.hpp
         ReactionsToDot.hpp
@@ -66,3 +66,15 @@ add_executable(my_test Tests/vessel_test.cpp
 target_link_libraries(my_test PRIVATE doctest::doctest_with_main)
 #target_link_libraries(my_test PUBLIC matplot)
 add_test(NAME my_test COMMAND my_test)
+
+add_executable(seihr_peak_single_thread Executables/seihr_peak_single_thread.cpp
+        Vessel.hpp
+        symbol_table.hpp
+        reactant_store.hpp
+        printingVisitor.h++
+        Simulator.hpp
+        Observers/Observer.hpp
+        Meta/canAcceptVisitor.hpp
+        Examples/build_seihr.h++
+        Examples/build_seihr.cpp
+)

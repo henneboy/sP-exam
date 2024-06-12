@@ -2,9 +2,9 @@
 #include <iostream>
 #include "../Vessel.hpp"
 #include "../Simulator.hpp"
-#include "../Observer.hpp"
+#include "../Observers/Observer.hpp"
 #include "../Examples/build_circadian_rhythm.h++"
-#include "../StateMemorizer.hpp"
+#include "../Observers/StateMemorizer.hpp"
 #include "../Plotter.hpp"
 
 int main() {

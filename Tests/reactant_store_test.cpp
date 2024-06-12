@@ -2,7 +2,7 @@
 // Created by Henrik on 20-05-2024.
 //
 
-#include "doctest/doctest.h"
+#include "../Cmake/doctest/doctest.h"
 #include <string>
 #include "../reactant_store.hpp"
 
