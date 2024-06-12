@@ -3,7 +3,7 @@
 #include "../Vessel.hpp"
 #include "../Simulator.hpp"
 #include "../Observer.hpp"
-#include "../build_circadian_rhythm.h++"
+#include "../Examples/build_circadian_rhythm.h++"
 
 int main() {
     auto v = circadian_rhythm();

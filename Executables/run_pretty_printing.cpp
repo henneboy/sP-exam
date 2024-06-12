@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "../Vessel.hpp"
-#include "../build_circadian_rhythm.h++"
+#include "../Examples/build_circadian_rhythm.h++"
 
 int main() {
     auto v = circadian_rhythm();

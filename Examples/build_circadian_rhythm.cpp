@@ -3,7 +3,6 @@
 //
 
 #include <iostream>
-#include "vessel.hpp"
 #include "build_circadian_rhythm.h++"
 
 Vessel circadian_rhythm() {
