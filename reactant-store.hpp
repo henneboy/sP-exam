@@ -8,7 +8,7 @@
 #ifndef SHAPE_EXAMPLE_REACTANT_STORE_H
 #define SHAPE_EXAMPLE_REACTANT_STORE_H
 
-template <typename key, typename value> requires std::incrementable<value>
+template <typename key, typename value> requires std::is_arithmetic_v<value>
 class reactant_store : public symbol_table<key, value> {
     void crement(key k, bool increment){
         auto it = this->table.find(k);
@@ -32,7 +32,7 @@ public:
         crement(k, false);
     }
 
-    std::unordered_map<key, value> getState(){
+    std::unordered_map<key, value> getState() const{
         return this->table;
     }
 };

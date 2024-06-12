@@ -26,6 +26,14 @@ add_executable(pretty_printing Executables/run_pretty_printing.cpp
         build_circadian_rhythm.cpp
 )
 
+add_executable(make_dot_file Executables/make_dot_file.cpp
+        Vessel.hpp
+        symbol_table.hpp
+        reactant-store.hpp
+        build_circadian_rhythm.cpp
+        ReactionsToDot.hpp
+)
+
 enable_testing()
 add_executable(my_test Tests/vessel-test.cpp
         Vessel.hpp
@@ -39,8 +47,8 @@ add_executable(my_test Tests/vessel-test.cpp
         Plotter.hpp
         build_circadian_rhythm.cpp
         Meta/canAcceptVisitor.hpp
+        ReactionsToDot.hpp
 )
 target_link_libraries(my_test PRIVATE doctest::doctest_with_main)
 #target_link_libraries(my_test PUBLIC matplot)
-
 add_test(NAME my_test COMMAND my_test)
