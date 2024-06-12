@@ -5,12 +5,19 @@
 #include <iostream>
 #include "../Vessel.hpp"
 #include "../Examples/build_circadian_rhythm.h++"
+#include "../Examples/build_seihr.h++"
 
 int main() {
     auto v = circadian_rhythm();
     std::cout << "Finished building vessel:" << v.vesselName << std::endl;
     std::cout << "Printing reactions of vessel:" << std::endl;
     v.Print(std::cout);
+
+    v = seihr();
+    std::cout << "Finished building vessel:" << v.vesselName << std::endl;
+    std::cout << "Printing reactions of vessel:" << std::endl;
+    v.Print(std::cout);
+
     return 0;
 }
 

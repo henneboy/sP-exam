@@ -2,7 +2,6 @@
 // Created by Henri on 24/05/2024.
 //
 
-#include <iostream>
 #include "build_circadian_rhythm.h++"
 
 Vessel circadian_rhythm() {
@@ -32,9 +31,6 @@ Vessel circadian_rhythm() {
     const auto A = v.add("A", 0);
     const auto R = v.add("R", 0);
     const auto C = v.add("C", 0);
-    const auto agentMultiOverload = (A + DA);
-    const auto agentAndDelayOverload = (D_A) >> thetaA;
-    const auto reaction = (A + DA) >> gammaA >>= D_A;
     v.add((A + DA) >> gammaA >>= D_A);
     v.add(D_A >> thetaA >>= DA + A);
     v.add((A + DR) >> gammaR >>= D_R);

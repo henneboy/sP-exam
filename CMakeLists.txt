@@ -16,6 +16,9 @@ add_executable(Run_main Executables/main.cpp
         Meta/canAcceptVisitor.hpp
         Examples/build_circadian_rhythm.h++
         Examples/build_circadian_rhythm.cpp
+        Examples/build_seihr.h++
+        Examples/build_seihr.cpp
+
 )
 target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
 target_link_libraries(Run_main PUBLIC matplot)
@@ -26,6 +29,8 @@ add_executable(pretty_printing Executables/run_pretty_printing.cpp
         reactant-store.hpp
         Examples/build_circadian_rhythm.h++
         Examples/build_circadian_rhythm.cpp
+        Examples/build_seihr.h++
+        Examples/build_seihr.cpp
 )
 
 add_executable(make_dot_file Executables/make_dot_file.cpp
@@ -35,6 +40,8 @@ add_executable(make_dot_file Executables/make_dot_file.cpp
         ReactionsToDot.hpp
         Examples/build_circadian_rhythm.h++
         Examples/build_circadian_rhythm.cpp
+        Examples/build_seihr.h++
+        Examples/build_seihr.cpp
 )
 
 enable_testing()
@@ -52,6 +59,8 @@ add_executable(my_test Tests/vessel-test.cpp
         ReactionsToDot.hpp
         Examples/build_circadian_rhythm.h++
         Examples/build_circadian_rhythm.cpp
+        Examples/build_seihr.h++
+        Examples/build_seihr.cpp
 )
 
 target_link_libraries(my_test PRIVATE doctest::doctest_with_main)
