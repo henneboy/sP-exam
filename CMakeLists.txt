@@ -74,7 +74,23 @@ add_executable(seihr_peak_single_thread Executables/seihr_peak_single_thread.cpp
         printingVisitor.h++
         Simulator.hpp
         Observers/Observer.hpp
+        Plotter.hpp
         Meta/canAcceptVisitor.hpp
         Examples/build_seihr.h++
         Examples/build_seihr.cpp
 )
+target_link_libraries(seihr_peak_single_thread PUBLIC matplot)
+
+add_executable(seihr_plot_graph Executables/seihr_plot_graph.cpp
+        Vessel.hpp
+        symbol_table.hpp
+        reactant_store.hpp
+        printingVisitor.h++
+        Simulator.hpp
+        Observers/Observer.hpp
+        Plotter.hpp
+        Meta/canAcceptVisitor.hpp
+        Examples/build_seihr.h++
+        Examples/build_seihr.cpp
+)
+target_link_libraries(seihr_plot_graph PUBLIC matplot)

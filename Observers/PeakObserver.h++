@@ -1,5 +1,5 @@
 //
-// Created by Henri on 12/06/2024.
+// Created by Henri on 13/06/2024.
 //
 
 #ifndef SP_EXAM_PEAKOBSERVER_H
@@ -12,8 +12,8 @@
 
 struct PeakObserver : public SimulationObserver{
     std::string agentOfInterest;
-    unsigned peak;
-    double peakTime;
+    unsigned peak = 0;
+    double peakTime = 0;
 
     explicit PeakObserver(std::string agentOfInterest) : agentOfInterest(std::move(agentOfInterest)){}
 

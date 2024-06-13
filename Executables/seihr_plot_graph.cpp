@@ -17,9 +17,12 @@ int main() {
 
     std::cout << "Running simulation" << std::endl;
     Simulator sim{1};
-    PeakObserver peakObserver{"H"};
-    sim.simulate(100.0, v, peakObserver);
-    std::cout << "Peak level: " <<  peakObserver.peak  << ", at time: " << peakObserver.peakTime << std::endl;
+
+    //std::vector<std::string> agentsOfInterest = {"S", "E", "I", "H", "R"};
+    std::vector<std::string> agentsOfInterest = {"H"};
+    StateMemorizer memorizer{agentsOfInterest};
+    sim.simulate(100.0, v, memorizer);
+    Plotter::visit(memorizer.data);
 
     return 0;
 }
