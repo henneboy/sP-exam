@@ -9,25 +9,26 @@
 #include <mutex>
 #include <queue>
 #include <thread>
+#include "../Observers/PeakObserver.h++"
+#include "../Simulator.hpp"
+#include "../Examples/build_seihr.h++"
+
 using namespace std;
-
-
-// This code was brought to you by geeksforgeeks.org ;)
 
 // Class that represents a simple thread pool
 class ThreadPool {
 public:
     // // Constructor to creates a thread pool with given
     // number of threads
-    ThreadPool(size_t num_threads
+    //template<typename T>
+    explicit ThreadPool(function<unsigned()> baseTask, std::vector<unsigned>& results, unsigned iterations, size_t num_threads
     = jthread::hardware_concurrency())
     {
-
+        missingIterations_ = iterations;
         // Creating worker threads
         for (size_t i = 0; i < num_threads; ++i) {
-            threads_.emplace_back([this] {
+            threads_.emplace_back([this, &baseTask, &results] {
                 while (true) {
-                    function<void()> task;
                     // The reason for putting the below code
                     // here is to unlock the queue before
                     // executing the task so that other
@@ -36,26 +37,26 @@ public:
                         // Locking the queue so that data
                         // can be shared safely
                         unique_lock<mutex> lock(
-                                queue_mutex_);
-
-                        // Waiting until there is a task to
-                        // execute or the pool is stopped
-                        cv_.wait(lock, [this] {
-                            return !tasks_.empty() || stop_;
-                        });
+                                mutex_);
 
                         // exit the thread in case the pool
                         // is stopped and there are no tasks
-                        if (stop_ && tasks_.empty()) {
+                        if (missingIterations_ == 0) {
                             return;
                         }
 
                         // Get the next task from the queue
-                        task = move(tasks_.front());
-                        tasks_.pop();
                     }
-
-                    task();
+                    missingIterations_--;
+                    auto result = baseTask();
+                    {
+                        // Locking the queue so that data
+                        // can be shared safely
+                        unique_lock<mutex> lock(
+                                mutex_);
+                        cout << "Missing " << missingIterations_ << " iterations." << endl;
+                        results.push_back(result);
+                    }
                 }
             });
         }
@@ -64,65 +65,53 @@ public:
     // Destructor to stop the thread pool
     ~ThreadPool()
     {
-        {
-            // Lock the queue to update the stop flag safely
-            unique_lock<mutex> lock(queue_mutex_);
-            stop_ = true;
-        }
-
-        // Notify all threads
-        cv_.notify_all();
+        missingIterations_ = 0;
 
         // Joining all worker threads to ensure they have
         // completed their tasks
-        for (auto& thread : threads_) {
-            thread.join();
-        }
+        waitForCompletion();
     }
 
-    // Enqueue task for execution by the thread pool
-    void enqueue(function<void()> task)
-    {
-        {
-            unique_lock<std::mutex> lock(queue_mutex_);
-            tasks_.emplace(move(task));
+    void waitForCompletion(){
+        for (auto& thread : threads_) {
+            if (thread.joinable())
+                thread.join();
         }
-        cv_.notify_one();
     }
 
 private:
     // Vector to store worker threads
     vector<jthread> threads_;
 
-    // Queue of tasks
-    queue<function<void()> > tasks_;
-
     // Mutex to synchronize access to shared data
-    mutex queue_mutex_;
+    mutex mutex_;
 
-    // Condition variable to signal changes in the state of
-    // the tasks queue
-    condition_variable cv_;
-
-    // Flag to indicate whether the thread pool should stop
-    // or not
-    bool stop_ = false;
+    std::atomic<unsigned> missingIterations_;
 };
+
+unsigned CalcPeak(){
+    auto v = seihr(589755);
+    Simulator sim{1};
+    PeakObserver peakObserver{"H"};
+    sim.simulate(100.0, v, peakObserver, false);
+    return peakObserver.peak;
+}
 
 int main()
 {
-    // Create a thread pool with 4 threads
-    ThreadPool pool(4);
+    std::vector<unsigned> results{};
 
-    // Enqueue tasks for execution
-    for (int i = 0; i < 5; ++i) {
-        pool.enqueue([i] {
-            cout << "Task " << i << " is running on thread " << this_thread::get_id() << endl;
-            // Simulate some work
-            this_thread::sleep_for(
-                    chrono::milliseconds(100));
-        });
-    }
+    // Create a thread pool with 4 threads
+    ThreadPool pool(CalcPeak, results, 500);
+
+    pool.waitForCompletion();
+
+    // sum of the vector elements
+    double sum = accumulate(results.begin(), results.end(), 0.0);
+
+    // average of the vector elements
+    double avg = sum / round(results.size());
+    cout << "Average: " << avg << endl;
 
     return 0;
 }
