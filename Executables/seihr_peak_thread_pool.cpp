@@ -3,7 +3,6 @@
 //
 // C++ Program to demonstrate thread pooling
 
-#include <condition_variable>
 #include <functional>
 #include <iostream>
 #include <mutex>
@@ -46,8 +45,8 @@ public:
                         }
 
                         // Get the next task from the queue
+                        missingIterations_--;
                     }
-                    missingIterations_--;
                     auto result = baseTask();
                     {
                         // Locking the queue so that data
@@ -66,7 +65,6 @@ public:
     ~ThreadPool()
     {
         missingIterations_ = 0;
-
         // Joining all worker threads to ensure they have
         // completed their tasks
         waitForCompletion();
@@ -91,7 +89,7 @@ private:
 
 unsigned CalcPeak(){
     auto v = seihr(589755);
-    Simulator sim{1};
+    Simulator sim{};
     PeakObserver peakObserver{"H"};
     sim.simulate(100.0, v, peakObserver, false);
     return peakObserver.peak;
@@ -102,15 +100,15 @@ int main()
     std::vector<unsigned> results{};
 
     // Create a thread pool with 4 threads
-    ThreadPool pool(CalcPeak, results, 500);
+    ThreadPool pool(CalcPeak, results, 100);
 
     pool.waitForCompletion();
 
     // sum of the vector elements
-    double sum = accumulate(results.begin(), results.end(), 0.0);
+    auto sum = accumulate(results.begin(), results.end(), 0U);
 
     // average of the vector elements
-    double avg = sum / round(results.size());
+    auto avg = sum / results.size();
     cout << "Average: " << avg << endl;
 
     return 0;
