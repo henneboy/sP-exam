@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <random>
 #include "Meta/CanAcceptState.hpp"
+#include "Vessel.hpp"
 
 #ifndef SHAPE_EXAMPLE_SIMULATOR_HPP
 #define SHAPE_EXAMPLE_SIMULATOR_HPP
@@ -23,8 +24,9 @@ public:
     explicit Simulator(int seed) : gen(seed){}
 
     template <CanAcceptState T>
-    void simulate(double duration, Vessel& vessel, T& observer){
-        std::cout << "Starting simulation" << std::endl;
+    void simulate(double duration, Vessel& vessel, T& observer, bool logStatusToConsole){
+        if (logStatusToConsole)
+            std::cout << "Starting simulation" << std::endl;
         double t = 0;
         unsigned iterationCounter = 0;
         unsigned loggingInterval = 5000;
@@ -35,7 +37,8 @@ public:
             t += delay;
             performReaction(vessel, currentReaction);
             iterationCounter++;
-            if (iterationCounter % loggingInterval == 0){
+            if (logStatusToConsole && iterationCounter % loggingInterval == 0){
+
                 std::cout << "Time: " << t << " of total: " << duration << std::endl;
             }
         }
