@@ -4,6 +4,8 @@ project(sP-exam)
 set(CMAKE_CXX_STANDARD 23)
 include(Cmake/doctest.cmake)
 include(Cmake/matplotplusplus.cmake)
+include(Cmake/benchmark.cmake)
+find_package(Threads REQUIRED)
 
 
 add_executable(Run_main Executables/main.cpp
@@ -78,6 +80,7 @@ add_executable(seihr_peak_single_thread Executables/seihr_peak_single_thread.cpp
         Meta/canAcceptVisitor.hpp
         Examples/build_seihr.h++
         Examples/build_seihr.cpp
+        utilities.h++
 )
 target_link_libraries(seihr_peak_single_thread PUBLIC matplot)
 
@@ -106,4 +109,22 @@ add_executable(seihr_peak_thread_pool Executables/seihr_peak_thread_pool.cpp
         Meta/canAcceptVisitor.hpp
         Examples/build_seihr.h++
         Examples/build_seihr.cpp
+        utilities.h++
 )
+
+add_executable(bm_seihr_single_thread Executables/bm_seihr_peak_single_thread.cpp
+        Vessel.hpp
+        symbol_table.hpp
+        reactant_store.hpp
+        printingVisitor.h++
+        Simulator.hpp
+        Observers/Observer.hpp
+        Plotter.hpp
+        Meta/canAcceptVisitor.hpp
+        Examples/build_seihr.h++
+        Examples/build_seihr.cpp
+        utilities.h++
+)
+
+target_link_libraries(bm_seihr_single_thread PRIVATE Threads::Threads benchmark::benchmark_main)
+#add_test(NAME bm_seihr_single_thread COMMAND bm_seihr_single_thread)

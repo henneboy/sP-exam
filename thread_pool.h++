@@ -24,13 +24,13 @@ public:
     // // Constructor to creates a thread pool with given
     // number of threads
     //template<typename T>
-    explicit ThreadPool(function<unsigned()> baseTask, std::vector<unsigned>& results, unsigned iterations, unsigned long long int num_threads
+    explicit ThreadPool(function<unsigned(size_t)> baseTask, const size_t N, std::vector<unsigned>& results, unsigned iterations, unsigned long long int num_threads
     = jthread::hardware_concurrency())
     {
         missingIterations_ = iterations;
         // Creating worker threads
         for (unsigned long long int i = 0; i < num_threads; ++i) {
-            threads_.emplace_back([this, &baseTask, &results] {
+            threads_.emplace_back([this, &baseTask, &results, &N] {
                 while (true) {
                     // The reason for putting the below code
                     // here is to unlock the queue before
@@ -51,7 +51,7 @@ public:
                         // Get the next task from the queue
                         missingIterations_--;
                     }
-                    auto result = baseTask();
+                    auto result = baseTask(N);
                     {
                         // Locking the queue so that data
                         // can be shared safely

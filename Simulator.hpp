@@ -24,9 +24,7 @@ public:
     explicit Simulator(int seed) : gen(seed){}
 
     template <CanAcceptState T>
-    void simulate(double duration, Vessel& vessel, T& observer, bool logStatusToConsole){
-        if (logStatusToConsole)
-            std::cout << "Starting simulation" << std::endl;
+    void simulate(double duration, Vessel &vessel, T& observer) {
         double t = 0;
         while (t < duration){
             observer.accept(vessel.table.getState(), t);

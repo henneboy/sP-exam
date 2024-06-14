@@ -5,21 +5,11 @@
 #include <iostream>
 #include "../Vessel.hpp"
 #include "../Simulator.hpp"
-#include "../Observers/Observer.hpp"
-#include "../Observers/StateMemorizer.hpp"
-#include "../Examples/build_seihr.h++"
-#include "../Observers/PeakObserver.h++"
-#include "../Plotter.hpp"
+#include "../utilities.h++"
 
 int main() {
-    auto v = seihr();
-    std::cout << "Finished building vessel " << v.vesselName << std::endl;
-
-    std::cout << "Running simulation" << std::endl;
-    Simulator sim{1};
-    PeakObserver peakObserver{"H"};
-    sim.simulate(100.0, v, peakObserver, true);
-    std::cout << "Peak level: " <<  peakObserver.peak  << ", at time: " << peakObserver.peakTime << std::endl;
+    auto peak = SimulateSeihrPeak(COVID19Parameters::NJ_Population);
+    std::cout << "Peak level: " <<  peak  << std::endl;
 
     return 0;
 }
