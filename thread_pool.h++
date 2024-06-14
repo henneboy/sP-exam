@@ -7,7 +7,6 @@
 
 #include <atomic>
 #include <functional>
-#include <iostream>
 #include <mutex>
 #include <queue>
 #include <thread>
@@ -57,7 +56,6 @@ public:
                         // can be shared safely
                         unique_lock<mutex> lock(
                                 mutex_);
-                        cout << "Missing " << missingIterations_ << " iterations." << endl;
                         results.push_back(result);
                     }
                 }
