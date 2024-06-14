@@ -28,19 +28,12 @@ public:
         if (logStatusToConsole)
             std::cout << "Starting simulation" << std::endl;
         double t = 0;
-        unsigned iterationCounter = 0;
-        unsigned loggingInterval = 5000;
         while (t < duration){
             observer.accept(vessel.table.getState(), t);
             auto [reactionId, delay] = nextReaction(vessel);
             auto currentReaction = vessel.reactions.find(reactionId)->second;
             t += delay;
             performReaction(vessel, currentReaction);
-            iterationCounter++;
-            if (logStatusToConsole && iterationCounter % loggingInterval == 0){
-
-                std::cout << "Time: " << t << " of total: " << duration << std::endl;
-            }
         }
         observer.accept(vessel.table.getState(), t);
     }
