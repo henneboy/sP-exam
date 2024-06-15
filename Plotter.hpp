@@ -18,7 +18,6 @@ struct Plotter{
     static void visit(const std::vector<DataPoint>& data){
         std::cout << "Plotting " << data.size() << " data points" << std::endl;
         auto [time, series] = transformData(data);
-        std::cout << "Transforming yielded " << time.size() << " data points" << std::endl;
         hold(on);
         for (const auto& s: series) {
             auto p = plot(time, s.second);
@@ -32,20 +31,15 @@ struct Plotter{
     static std::tuple<std::vector<double>, std::unordered_map<std::string, std::vector<unsigned>>> transformData(const std::vector<DataPoint>& data){
         std::vector<double> time;
         std::unordered_map<std::string, std::vector<unsigned>> series;
-        for (const auto& s: data.front().state) {
+        for (const auto& [agent, _]: data.front().state) {
             std::vector<unsigned> e;
-            series.emplace(s.first, e);
+            series.emplace(agent, e);
         }
-        std::unordered_map<std::string, unsigned> prevState{};
         for (const auto& d: data) {
-            if (d.state == prevState){
-                continue;
-            }
             time.push_back(d.time);
-            for (const auto& pair: d.state) {
-                series[pair.first].push_back(pair.second);
+            for (const auto& [agent, level]: d.state) {
+                series[agent].push_back(level);
             }
-            prevState = d.state;
         }
         return {time, series};
     };
