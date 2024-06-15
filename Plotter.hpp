@@ -11,11 +11,10 @@
 #include <set>
 #include <matplot/matplot.h>
 
-using namespace matplot;
-
 
 struct Plotter{
     static void visit(const std::vector<DataPoint>& data){
+        using namespace matplot;
         std::cout << "Plotting " << data.size() << " data points" << std::endl;
         auto [time, series] = transformData(data);
         hold(on);
@@ -24,7 +23,7 @@ struct Plotter{
             p->display_name(s.first);
         }
         hold(off);
-        ::matplot::legend({});
+        legend({});
         show();
     }
 

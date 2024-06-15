@@ -17,12 +17,12 @@ struct StateMemorizer : public SimulationObserver{
 
     void accept(const std::unordered_map<std::string, unsigned>& s, const double t) override{
         DataPoint d{t};
-        for (auto& agentOfInterest: agentsOfInterest) {
+        for (const auto& agentOfInterest: agentsOfInterest) {
             if (!s.contains(agentOfInterest)){
                 throw std::logic_error("Could not find: " + agentOfInterest + " in state.");
             }
             auto level = s.at(agentOfInterest);
-            d.state.emplace(agentOfInterest, level);
+            d.state.try_emplace(agentOfInterest, level);
         }
         data.push_back(d);
     }

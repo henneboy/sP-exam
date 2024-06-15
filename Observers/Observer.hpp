@@ -12,6 +12,7 @@
 struct SimulationObserver{
 public:
     virtual void accept(const std::unordered_map<std::string, unsigned>& s, double t) = 0;
+    virtual ~SimulationObserver() = default;
 };
 
 #endif //SHAPE_EXAMPLE_OBSERVER_HPP
