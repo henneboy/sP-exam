@@ -2,8 +2,7 @@
 // Created by Henri on 13/06/2024.
 //
 // C++ Program to demonstrate thread pooling
-
-#include "../Observers/PeakObserver.h++"
+#include <iostream>
 #include "../thread_pool.h++"
 #include "../utilities.h++"
 

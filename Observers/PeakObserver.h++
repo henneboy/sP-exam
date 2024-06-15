@@ -13,7 +13,6 @@
 struct PeakObserver : public SimulationObserver{
     std::string agentOfInterest;
     unsigned peak = 0;
-    double peakTime = 0;
 
     explicit PeakObserver(std::string agentOfInterest) : agentOfInterest(std::move(agentOfInterest)){}
 
@@ -24,7 +23,6 @@ struct PeakObserver : public SimulationObserver{
         auto level = s.at(agentOfInterest);
         if (level > peak){
             peak = level;
-            peakTime = t;
         }
     }
 };

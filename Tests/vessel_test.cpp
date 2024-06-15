@@ -15,7 +15,7 @@ TEST_CASE("Vessel successful parse")
     const auto gammaA = 1;
     const auto thetaA = 50;
     auto v = Vessel{"Circadian Rhythm"};
-    const auto env = v.environment();
+    const auto env = Vessel::environment();
     const auto DA = v.add("DA", 1);
     const auto D_A = v.add("D_A", 0);
     const auto A = v.add("A", 0);

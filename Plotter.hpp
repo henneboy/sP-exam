@@ -15,15 +15,6 @@ using namespace matplot;
 
 
 struct Plotter{
-    static void examplePlot(){
-        std::vector<double> X = {2,4,6,8};
-        std::set<std::vector<double>> Y = {
-                {16, 5, 9, 4}, {2, 11, 7, 14}, {3, 10, 6, 15}, {13, 8, 12, 1}};
-        plot(X, Y);
-
-        show();
-    }
-
     static void visit(const std::vector<DataPoint>& data){
         std::cout << "Plotting " << data.size() << " data points" << std::endl;
         auto [time, series] = transformData(data);
