@@ -7,7 +7,7 @@
 
 // 10. Benchmark and compare the stochastic simulation performance (e.g. the time it takes to compute 100 simulations
 //a single core, multiple cores, or improved implementation). Record the timings and make your conclusions.
-unsigned SimulateSeihrPeak_ThreadPool(size_t N, size_t iterations)
+size_t SimulateSeihrPeak_ThreadPool(size_t N, size_t iterations)
 {
     vector<unsigned> results{};
 
