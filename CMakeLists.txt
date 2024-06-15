@@ -15,7 +15,6 @@ add_executable(Run_main Executables/circadian_plot_graph.cpp
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
-        Meta/canAcceptVisitor.hpp
         Examples/build_circadian_rhythm.h++
         Examples/build_circadian_rhythm.cpp
         Examples/build_seihr.h++
@@ -57,7 +56,6 @@ add_executable(my_test Tests/vessel_test.cpp
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
-        Meta/canAcceptVisitor.hpp
         ReactionsToDot.hpp
         Examples/build_circadian_rhythm.h++
         Examples/build_circadian_rhythm.cpp
@@ -79,7 +77,6 @@ add_executable(seihr_peak_single_thread Executables/seihr_peak_single_thread.cpp
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
-        Meta/canAcceptVisitor.hpp
         Examples/build_seihr.h++
         Examples/build_seihr.cpp
         utilities.h++
@@ -93,7 +90,6 @@ add_executable(seihr_plot_graph Executables/seihr_plot_graph.cpp
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
-        Meta/canAcceptVisitor.hpp
         Examples/build_seihr.h++
         Examples/build_seihr.cpp
 )
@@ -106,7 +102,6 @@ add_executable(seihr_peak_thread_pool Executables/seihr_peak_thread_pool.cpp
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
-        Meta/canAcceptVisitor.hpp
         Examples/build_seihr.h++
         Examples/build_seihr.cpp
         utilities.h++
@@ -119,7 +114,6 @@ add_executable(bm_seihr_single_thread Executables/bm_seihr_peak_single_thread.cp
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
-        Meta/canAcceptVisitor.hpp
         Examples/build_seihr.h++
         Examples/build_seihr.cpp
         utilities.h++

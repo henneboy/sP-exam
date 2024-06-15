@@ -8,7 +8,6 @@
 #include <vector>
 #include "Observer.hpp"
 #include "../DataPoint.hpp"
-#include "../Meta/canAcceptVisitor.hpp"
 
 struct PeakObserver : public SimulationObserver{
     std::string agentOfInterest;
