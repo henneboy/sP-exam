@@ -8,7 +8,7 @@ include(Cmake/benchmark.cmake)
 find_package(Threads REQUIRED)
 
 
-add_executable(Run_main Executables/main.cpp
+add_executable(Run_main Executables/circadian_plot_graph.cpp
         Vessel.hpp
         symbol_table.hpp
         reactant_store.hpp
