@@ -127,3 +127,10 @@ add_executable(bm_seihr_single_thread Executables/bm_seihr_peak_single_thread.cp
 
 target_link_libraries(bm_seihr_single_thread PRIVATE Threads::Threads benchmark::benchmark_main)
 #add_test(NAME bm_seihr_single_thread COMMAND bm_seihr_single_thread)
+
+add_executable(sample_trajectories_graph Executables/sample_trajectories.cpp
+        Examples/build_sample_trejectory.h++
+        Examples/build_sample_trejectory.cpp
+)
+target_link_libraries(sample_trajectories_graph PUBLIC matplot)
+
