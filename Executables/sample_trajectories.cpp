@@ -9,6 +9,10 @@
 #include "../Observers/StateMemorizer.hpp"
 #include "../Plotter.hpp"
 
+// Requirement: 5. Demonstrate the application of the library on the three examples (shown in Fig. 1).
+// Requirement: 6. Display simulation trajectories of how the amounts change. External tools/libraries can be used to visualize.
+
+
 int main() {
     auto v = sample_trajectory(100, 0, 1);
     std::cout << "Finished building vessel " << v.vesselName << std::endl;

@@ -12,7 +12,7 @@
 #include "../Plotter.hpp"
 
 // Requirement: 5. Demonstrate the application of the library on the three examples (shown in Fig. 3).
-
+// Requirement: 6. Display simulation trajectories of how the amounts change. External tools/libraries can be used to visualize.
 
 int main() {
     auto v = seihr();
