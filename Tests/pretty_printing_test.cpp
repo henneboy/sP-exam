@@ -6,6 +6,8 @@
 #include "../pretty_printing.h++"
 #include <sstream>
 
+// Requirement: 9. Implement unit tests (e.g. pretty-printing of reaction rules)
+
 TEST_CASE("testing pretty printing of reaction rules")
 {
     auto circadianVessel = circadian_rhythm();

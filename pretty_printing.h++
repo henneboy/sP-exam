@@ -7,6 +7,8 @@
 #include <ostream>
 #include "Vessel.hpp"
 
+// Requirement: 2. Provide pretty-printing of the reaction network in a) human readable format
+
 std::ostream& operator<<(std::ostream& o, const Reaction& v) {
     for (const auto& input: v.inputs) {
         o << input;

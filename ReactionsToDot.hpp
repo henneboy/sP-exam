@@ -13,7 +13,10 @@
 #include <memory>
 #include <fstream>
 #include <iomanip>
+#include <format>
 #include "Vessel.hpp"
+
+// Requirement: 2. Provide pretty-printing of the reaction network in ... b) network graph (e.g. Fig. 4).
 
 struct ReactionsToDot{
     static void makeDotFile(const std::unordered_map<unsigned, Reaction>& reactions, const reactant_store<std::string, unsigned>& store, const std::string& filename){

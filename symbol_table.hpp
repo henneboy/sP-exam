@@ -2,14 +2,18 @@
 // Created by Henrik on 18-05-2024.
 //
 #include <unordered_map>
-#include <optional>
 #include <stdexcept>
 
 #ifndef SHAPE_EXAMPLE_SYMBOL_TABLE_H
 #define SHAPE_EXAMPLE_SYMBOL_TABLE_H
 
+// 3. Implement a generic symbol reactants to store and lookup objects of user-defined key and value types.
+// Support failure cases when
+//      a) the reactants does not contain a looked up symbol,
+//      b) the reactants already contains a symbol that is being added.
+
 template <typename key, typename value>
-class [[maybe_unused]] symbol_table{
+class symbol_table{
 protected:
     std::unordered_map<key, value> table;
 public:
