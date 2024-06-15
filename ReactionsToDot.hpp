@@ -19,7 +19,6 @@ struct ReactionsToDot{
     static void makeDotFile(const std::unordered_map<unsigned, Reaction>& reactions, const reactant_store<std::string, unsigned>& store, const std::string& filename){
         std::ofstream of{filename};
         of.flags(std::ofstream::fixed);
-        of.precision(2);
         of << "digraph{" << std::endl;
         const auto& reactants = store.getState();
         for (const auto& [agentName, _]: reactants) {

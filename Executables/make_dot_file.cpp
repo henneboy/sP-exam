@@ -6,12 +6,17 @@
 #include "../Vessel.hpp"
 #include "../ReactionsToDot.hpp"
 #include "../Examples/build_circadian_rhythm.h++"
+#include "../Examples/build_seihr.h++"
 
 int main() {
-    auto v = circadian_rhythm();
-    std::cout << "Finished building vessel:" << v.vesselName << std::endl;
-    std::cout << "Creating dot file of reactions of circadian rhythm" << std::endl;
-    ReactionsToDot::makeDotFile(v.reactions, v.table, "circadian_dot");
+    auto circadianVessel = circadian_rhythm();
+    std::cout << "Finished building vessel:" << circadianVessel.vesselName << std::endl;
+    ReactionsToDot::makeDotFile(circadianVessel.reactions, circadianVessel.table, "circadian_dot.txt");
+
+    auto seihrVessel = seihr();
+    std::cout << "Finished building vessel:" << seihrVessel.vesselName << std::endl;
+    ReactionsToDot::makeDotFile(seihrVessel.reactions, seihrVessel.table, "seihr_dot.txt");
+
     return 0;
 }
 
