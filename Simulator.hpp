@@ -27,22 +27,22 @@ public:
     void simulate(double duration, Vessel &vessel, T& observer) {
         double t = 0;
         while (t < duration){
-            observer.accept(vessel.table.getState(), t);
+            observer.accept(vessel.reactants.getState(), t);
             auto [reactionId, delay] = nextReaction(vessel);
             auto currentReaction = vessel.reactions.find(reactionId)->second;
             t += delay;
             performReaction(vessel, currentReaction);
         }
-        observer.accept(vessel.table.getState(), t);
+        observer.accept(vessel.reactants.getState(), t);
     }
 
 private:
     static void performReaction(Vessel& vessel, const Reaction& r) {
         for (auto& input: r.inputs) {
-            vessel.table.decrement(input);
+            vessel.reactants.decrement(input);
         }
         for (auto& output: r.outputs) {
-            vessel.table.increment(output);
+            vessel.reactants.increment(output);
         }
     }
 
@@ -50,13 +50,13 @@ private:
         unsigned nextReaction = 0;
         double shortestDelay = std::numeric_limits<double>::max();
         bool foundViableReaction = false;
-        for (const auto& reaction: vessel.reactions) {
-            auto delay = calculateDelay(reaction.second, vessel);
+        for (const auto& [index, reaction]: vessel.reactions) {
+            auto delay = calculateDelay(reaction, vessel);
             if (delay.has_value()){
                 foundViableReaction = true;
                 if (delay.value() < shortestDelay){
                     shortestDelay = delay.value();
-                    nextReaction = reaction.first;
+                    nextReaction = index;
                 }
             }
         }
@@ -69,13 +69,13 @@ private:
     std::optional<double> calculateDelay(const Reaction& reaction, const Vessel& vessel){
         double productOfInputs = 1;
         for (const auto& input: reaction.inputs){
-            auto inputLevel = vessel.table.lookup(input);
+            auto inputLevel = vessel.reactants.lookup(input);
             if (inputLevel == 0){
                 return std::nullopt;
             }
             productOfInputs *= inputLevel;
         }
-        std::exponential_distribution<> d(productOfInputs * reaction.delay);
+        std::exponential_distribution d(productOfInputs * reaction.delay);
         return d(gen);
     }
 };

@@ -70,8 +70,12 @@ struct Reaction{
 };
 
 struct Vessel {
+    // Requirement 3. Implement a generic symbol reactants to store and lookup objects of user-defined key and value types.
+    // Demonstrate the usage of the symbol reactants with the reactants (names and initial counts).
+    // --- The reactans_store is a specialization of the symbol_table.
+    reactant_store<std::string, unsigned> reactants{};
+
     std::string vesselName;
-    reactant_store<std::string, unsigned> table{};
     std::unordered_map<unsigned, Reaction> reactions{};
     unsigned reactionId = 0;
 
@@ -85,7 +89,7 @@ struct Vessel {
     }
 
     std::shared_ptr<Agent> add(const std::string& agentName, unsigned initialAmount){
-        auto success = table.store(agentName, initialAmount);
+        auto success = reactants.store(agentName, initialAmount);
         if (!success){
             throw std::invalid_argument("The following key already exists: " + agentName);
         }
@@ -93,10 +97,12 @@ struct Vessel {
     }
 
     void add(const Reaction& r){
-        reactions.emplace(reactionId++, r);
+        reactions.try_emplace(reactionId, r);
+        reactionId++;
     }
 };
 
+// Requirement: 1. The library should overload operators to support the reaction rule typesetting directly in C++ code.
 
 inline Term operator+(const std::shared_ptr<Agent>& lhs, const std::shared_ptr<Agent>& rhs) {
     return {lhs, rhs};

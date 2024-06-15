@@ -11,11 +11,11 @@
 int main() {
     auto circadianVessel = circadian_rhythm();
     std::cout << "Finished building vessel:" << circadianVessel.vesselName << std::endl;
-    ReactionsToDot::makeDotFile(circadianVessel.reactions, circadianVessel.table, "circadian_dot.txt");
+    ReactionsToDot::makeDotFile(circadianVessel.reactions, circadianVessel.reactants, "circadian_dot.txt");
 
     auto seihrVessel = seihr();
     std::cout << "Finished building vessel:" << seihrVessel.vesselName << std::endl;
-    ReactionsToDot::makeDotFile(seihrVessel.reactions, seihrVessel.table, "seihr_dot.txt");
+    ReactionsToDot::makeDotFile(seihrVessel.reactions, seihrVessel.reactants, "seihr_dot.txt");
 
     return 0;
 }
