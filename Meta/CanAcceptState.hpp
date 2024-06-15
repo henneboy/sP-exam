@@ -8,10 +8,10 @@
 #include <unordered_map>
 #include <string>
 
-#endif //SP_EXAM_CANACCEPTSTATE_HPP
-
 template <typename T>
 concept CanAcceptState = requires(T&& d, std::unordered_map<std::string, unsigned>& s, const double t) {
-{
+    {
     d.accept(s, t) };
 };
+
+#endif //SP_EXAM_CANACCEPTSTATE_HPP

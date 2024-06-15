@@ -8,7 +8,7 @@ include(Cmake/benchmark.cmake)
 find_package(Threads REQUIRED)
 
 
-add_executable(Run_main Executables/circadian_plot_graph.cpp
+add_executable(circadian_graph Executables/circadian_plot_graph.cpp
         Vessel.hpp
         symbol_table.hpp
         reactant_store.hpp
@@ -21,8 +21,8 @@ add_executable(Run_main Executables/circadian_plot_graph.cpp
         Examples/build_seihr.cpp
 
 )
-target_link_libraries(Run_main PRIVATE doctest::doctest_with_main)
-target_link_libraries(Run_main PUBLIC matplot)
+target_link_libraries(circadian_graph PRIVATE doctest::doctest_with_main)
+target_link_libraries(circadian_graph PUBLIC matplot)
 
 add_executable(pretty_printing Executables/run_pretty_printing.cpp
         Vessel.hpp
@@ -55,7 +55,6 @@ add_executable(my_test Tests/vessel_test.cpp
         Tests/reactant_store_test.cpp
         Simulator.hpp
         Observers/Observer.hpp
-        Plotter.hpp
         ReactionsToDot.hpp
         Examples/build_circadian_rhythm.h++
         Examples/build_circadian_rhythm.cpp
