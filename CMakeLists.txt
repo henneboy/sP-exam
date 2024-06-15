@@ -106,7 +106,7 @@ add_executable(seihr_peak_thread_pool Executables/seihr_peak_thread_pool.cpp
         utilities.h++
 )
 
-add_executable(bm_seihr_single_thread Executables/bm_seihr_peak_single_thread.cpp
+add_executable(bm_seihr Executables/bm_seihr.cpp
         Vessel.hpp
         symbol_table.hpp
         reactant_store.hpp
@@ -118,7 +118,7 @@ add_executable(bm_seihr_single_thread Executables/bm_seihr_peak_single_thread.cp
         utilities.h++
 )
 
-target_link_libraries(bm_seihr_single_thread PRIVATE Threads::Threads benchmark::benchmark_main)
+target_link_libraries(bm_seihr PRIVATE Threads::Threads benchmark::benchmark_main)
 #add_test(NAME bm_seihr_single_thread COMMAND bm_seihr_single_thread)
 
 add_executable(sample_trajectories_graph Executables/sample_trajectories.cpp
