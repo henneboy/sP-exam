@@ -6,6 +6,8 @@
 #include <string>
 #include "../symbol_table.hpp"
 
+// Requirement: 9. Implement unit tests (e.g. test symbol table methods, their failure cases)
+
 TEST_CASE("Symbol table add tests (string, unsigned)")
 {
     symbol_table<std::string, unsigned> table{};

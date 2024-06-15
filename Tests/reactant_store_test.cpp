@@ -5,8 +5,6 @@
 #include "doctest/doctest.h"
 #include "../reactant_store.hpp"
 
-// Ensure it still has the functionality of the symbol-reactants ----------------------------
-
 TEST_CASE("reactant-store increment test (int, int)")
 {
     reactant_store<int, int> table{};

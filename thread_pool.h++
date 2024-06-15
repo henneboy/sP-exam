@@ -16,6 +16,7 @@
 
 using namespace std;
 
+// Requirement: 8. Implement support for multiple computer cores by parallelizing the computation of several simulations at the same time.
 
 // Class that represents a simple thread pool
 class ThreadPool {

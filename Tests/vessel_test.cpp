@@ -7,7 +7,7 @@ TEST_CASE("Vessel ctor test")
 {
     auto v = Vessel{"Circadian Rhythm"};
     CHECK(v.reactions.empty());
-    CHECK(v.vesselName == "Circadian Rhythm");
+    CHECK((v.vesselName == "Circadian Rhythm"));
 }
 
 TEST_CASE("Vessel successful parse")
