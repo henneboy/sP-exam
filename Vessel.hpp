@@ -61,35 +61,11 @@ struct Reaction{
     std::vector<std::string> outputs{};
     double delay;
 
-    Reaction(const PartialReaction& p, const Term& rhs){
+    Reaction(const PartialReaction& p, const Term& rhs) : delay{p.delay} {
         auto lhs = p.Lhs.GetAgents();
         inputs.insert(inputs.end(), lhs.begin(), lhs.end());
-        delay = p.delay;
         auto rhsAgents = rhs.GetAgents();
         outputs.insert(outputs.end(), rhsAgents.begin(), rhsAgents.end());
-    }
-
-    [[nodiscard]] std::string Print() const {
-        std::string result;
-        for (const auto& input: inputs) {
-            result+= input;
-            if (!(input == inputs.back())){
-                result+= "+";
-            }
-        }
-        result+="--";
-        result+=std::to_string(delay);
-        result+="->";
-        if (outputs.empty()){
-            result+=Environment::Name;
-        }
-        for (const auto& output: outputs) {
-            result+= output;
-            if (!(output == outputs.back())){
-                result+= "+";
-            }
-        }
-        return result;
     }
 };
 
@@ -119,13 +95,6 @@ struct Vessel {
     void add(const Reaction& r){
         reactions.emplace(reactionId++, r);
     }
-
-    std::ostream& Print(std::ostream& os){
-        for (const auto& reaction: reactions) {
-            os << reaction.second.Print() << std::endl;
-        }
-        return os;
-    }
 };
 
 
@@ -134,7 +103,7 @@ inline Term operator+(const std::shared_ptr<Agent>& lhs, const std::shared_ptr<A
 }
 
 inline std::shared_ptr<Term> operator+(const Environment& env) {
-    return std::make_shared<Term>(Term(env));
+    return std::make_shared<Term>(env);
 }
 
 inline PartialReaction operator>>(const std::shared_ptr<Agent>& lhs, const double delay) {

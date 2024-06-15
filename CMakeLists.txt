@@ -33,6 +33,7 @@ add_executable(pretty_printing Executables/run_pretty_printing.cpp
         Examples/build_circadian_rhythm.cpp
         Examples/build_seihr.h++
         Examples/build_seihr.cpp
+        pretty_printing.h++
 )
 
 add_executable(make_dot_file Executables/make_dot_file.cpp
@@ -62,6 +63,9 @@ add_executable(my_test Tests/vessel_test.cpp
         Examples/build_circadian_rhythm.cpp
         Examples/build_seihr.h++
         Examples/build_seihr.cpp
+        Tests/pretty_printing_test.cpp
+        Tests/pretty_printing_test.cpp
+        pretty_printing.h++
 )
 
 target_link_libraries(my_test PRIVATE doctest::doctest_with_main)

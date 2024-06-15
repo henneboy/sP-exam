@@ -2,8 +2,7 @@
 // Created by Henrik on 20-05-2024.
 //
 
-#include "../Cmake/doctest/doctest.h"
-#include <string>
+#include "doctest/doctest.h"
 #include "../reactant_store.hpp"
 
 // Ensure it still has the functionality of the symbol-table ----------------------------
