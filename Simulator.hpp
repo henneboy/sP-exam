@@ -23,6 +23,7 @@ public:
     Simulator() : gen(rd()){}
     explicit Simulator(int seed) : gen(seed){}
 
+    // Requirement: 4. Implement the stochastic simulation (Alg. 1) of the system using the reaction rules.
     template <CanAcceptState T>
     void simulate(double duration, Vessel &vessel, T& observer) {
         double t = 0;

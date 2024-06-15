@@ -15,7 +15,6 @@ int main() {
     auto v = seihr();
     std::cout << "Finished building vessel " << v.vesselName << std::endl;
 
-    std::cout << "Running simulation" << std::endl;
     Simulator sim{1};
 
     //std::vector<std::string> agentsOfInterest = {"S", "E", "I", "H", "R"};
