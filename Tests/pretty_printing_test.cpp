@@ -4,8 +4,6 @@
 #include "doctest/doctest.h"
 #include "../Examples/build_circadian_rhythm.h++"
 #include "../pretty_printing.h++"
-#include <string>
-#include <iostream>
 #include <sstream>
 
 TEST_CASE("testing pretty printing of reaction rules")
