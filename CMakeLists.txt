@@ -53,7 +53,6 @@ add_executable(my_test Tests/vessel_test.cpp
         Tests/symbol_table_test.cpp
         reactant_store.hpp
         Tests/reactant_store_test.cpp
-        printingVisitor.h++
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
@@ -73,7 +72,6 @@ add_executable(seihr_peak_single_thread Executables/seihr_peak_single_thread.cpp
         Vessel.hpp
         symbol_table.hpp
         reactant_store.hpp
-        printingVisitor.h++
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
@@ -88,7 +86,6 @@ add_executable(seihr_plot_graph Executables/seihr_plot_graph.cpp
         Vessel.hpp
         symbol_table.hpp
         reactant_store.hpp
-        printingVisitor.h++
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
@@ -102,7 +99,6 @@ add_executable(seihr_peak_thread_pool Executables/seihr_peak_thread_pool.cpp
         Vessel.hpp
         symbol_table.hpp
         reactant_store.hpp
-        printingVisitor.h++
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
@@ -116,7 +112,6 @@ add_executable(bm_seihr_single_thread Executables/bm_seihr_peak_single_thread.cp
         Vessel.hpp
         symbol_table.hpp
         reactant_store.hpp
-        printingVisitor.h++
         Simulator.hpp
         Observers/Observer.hpp
         Plotter.hpp
