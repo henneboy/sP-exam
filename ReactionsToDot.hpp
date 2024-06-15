@@ -26,7 +26,7 @@ struct ReactionsToDot{
             addStatement(agentName, "box", "cyan", of);
         }
         for (const auto& [number, reaction]: reactions) {
-            std::string reactionID = "r" + std::to_string(number);
+            std::string reactionID = std::format("r{}", number);
             of << reactionID;
             addStatement(reaction.delay, "oval", "yellow", of);
             for (const auto& agent: reaction.inputs) {
