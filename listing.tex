@@ -1,0 +1,106 @@
+\documentclass[a4paper]{article}
+
+\usepackage[a4paper, total={18cm, 26cm}]{geometry}
+\usepackage[T1]{fontenc} % needed by beramono
+\usepackage{textcomp}
+% beramono.sty and MnSymbol.sty come with texlive-fonts-extra in Debian
+\usepackage[scaled=0.85]{beramono} % tt font supporting slshape and zero with dot
+\usepackage{MnSymbol} % fancy symbols for line-breaks
+\usepackage[utf8]{inputenc}
+\usepackage{listingsutf8}  % code listings, comes with texlive-latex-recommended
+%\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{graphicx} % \includegraphics[width=\textwidth]{image.png}
+
+\protected\def\plusminus{\ensuremath{\pm}}
+\DeclareUnicodeCharacter{C2B1}{\plusminus}
+
+\lstset{
+  inputencoding=utf8,
+  literate={±}{\plusminus}1
+}
+
+\lstdefinestyle{bwC++}{
+  language=C++,morekeywords={concept,consteval,constinit,constexpr,co_await,co_return,co_yield,requires},
+  basicstyle=\ttfamily,
+  keywordstyle=\bfseries,
+  stringstyle=\slshape,
+  commentstyle=\slshape,
+  morecomment=[s][\bfseries\slshape]{/**}{*/},
+  tabsize=4,
+  showstringspaces=false,
+  breaklines=true, breakatwhitespace=true,
+  prebreak={\hbox{\quad$\rhookswarrow$}},
+  postbreak={\hbox{$\lhookrightarrow$}},
+  breakindent={-8pt}, breakautoindent=false,
+  numbers=left, numberstyle=\tiny,
+  frameshape={RYR}{N}{N}{YYY} %frame=tb,frameround=tttt
+}
+
+\lstdefinestyle{colorC++}{
+  language=C++,morekeywords={concept,consteval,constinit,constexpr,co_await,co_return,co_yield,requires},
+  basicstyle=\ttfamily,
+  keywordstyle=\textcolor{blue},
+  stringstyle=\slshape\textcolor{red!70!black},
+  commentstyle=\slshape\textcolor{green!50!black},
+  morecomment=[s][\bfseries\slshape\textcolor{green!50!black}]{/**}{*/},
+  tabsize=4,
+  showstringspaces=false,
+  breaklines=true, breakatwhitespace=true,
+  prebreak={\hbox{\quad\textcolor{red}{$\rhookswarrow$}}},
+  postbreak={\hbox{\textcolor{red}{$\lhookrightarrow$}}},
+  breakindent={-8pt}, breakautoindent=false,
+  numbers=left, numberstyle=\tiny,
+  frameshape={RYR}{N}{N}{YYY} %frame=tb,frameround=tttt
+}
+
+\lstdefinestyle{colorBash}{
+  language=bash,
+  basicstyle=\ttfamily,
+  keywordstyle=\textcolor{blue},
+  stringstyle=\slshape\textcolor{red!70!black},
+  commentstyle=\slshape\textcolor{green!50!black},
+  morecomment=[s][\bfseries\slshape\textcolor{green!50!black}]{/**}{*/},
+  tabsize=4,
+  showstringspaces=false,
+  breaklines=true, breakatwhitespace=true,
+  prebreak={\hbox{\quad\textcolor{red}{$\rhookswarrow$}}},
+  postbreak={\hbox{\textcolor{red}{$\lhookrightarrow$}}},
+  breakindent={-8pt}, breakautoindent=false,
+  numbers=left, numberstyle=\tiny,
+  frameshape={RYR}{N}{N}{YYY} %frame=tb,frameround=tttt
+}
+
+\title{sP exam mini project}
+\author{Henrik van Peet}
+\begin{document}
+  \maketitle
+  \lstinputlisting[style=colorC++,caption={./DataPoint.hpp}]{./DataPoint.hpp}
+  \lstinputlisting[style=colorC++,caption={./Meta/CanAcceptState.hpp}]{./Meta/CanAcceptState.hpp}
+  \lstinputlisting[style=colorC++,caption={./Observers/Observer.hpp}]{./Observers/Observer.hpp}
+  \lstinputlisting[style=colorC++,caption={./Observers/StateMemorizer.hpp}]{./Observers/StateMemorizer.hpp}
+  \lstinputlisting[style=colorC++,caption={./Plotter.hpp}]{./Plotter.hpp}
+  \lstinputlisting[style=colorC++,caption={./reactant\_store.hpp}]{./reactant_store.hpp}
+  \lstinputlisting[style=colorC++,caption={./ReactionsToDot.hpp}]{./ReactionsToDot.hpp}
+  \lstinputlisting[style=colorC++,caption={./Simulator.hpp}]{./Simulator.hpp}
+  \lstinputlisting[style=colorC++,caption={./symbol\_table.hpp}]{./symbol_table.hpp}
+  \lstinputlisting[style=colorC++,caption={./Vessel.hpp}]{./Vessel.hpp}
+  \lstinputlisting[style=colorC++,caption={./Examples/build\_circadian\_rhythm.cpp}]{./Examples/build_circadian_rhythm.cpp}
+  \lstinputlisting[style=colorC++,caption={./Examples/build\_sample\_trejectory.cpp}]{./Examples/build_sample_trejectory.cpp}
+  \lstinputlisting[style=colorC++,caption={./Examples/build\_seihr.cpp}]{./Examples/build_seihr.cpp}
+  \lstinputlisting[style=colorC++,caption={./Executables/bm\_seihr.cpp}]{./Executables/bm_seihr.cpp}
+  \lstinputlisting[style=colorC++,caption={./Executables/circadian\_plot\_graph.cpp}]{./Executables/circadian_plot_graph.cpp}
+  \lstinputlisting[style=colorC++,caption={./Executables/make\_dot\_file.cpp}]{./Executables/make_dot_file.cpp}
+  \lstinputlisting[style=colorC++,caption={./Executables/run\_pretty\_printing.cpp}]{./Executables/run_pretty_printing.cpp}
+  \lstinputlisting[style=colorC++,caption={./Executables/sample\_trajectories.cpp}]{./Executables/sample_trajectories.cpp}
+  \lstinputlisting[style=colorC++,caption={./Executables/seihr\_peak\_single\_thread.cpp}]{./Executables/seihr_peak_single_thread.cpp}
+  \lstinputlisting[style=colorC++,caption={./Executables/seihr\_peak\_thread\_pool.cpp}]{./Executables/seihr_peak_thread_pool.cpp}
+  \lstinputlisting[style=colorC++,caption={./Executables/seihr\_plot\_graph.cpp}]{./Executables/seihr_plot_graph.cpp}
+  \lstinputlisting[style=colorC++,caption={./Tests/pretty\_printing\_test.cpp}]{./Tests/pretty_printing_test.cpp}
+  \lstinputlisting[style=colorC++,caption={./Tests/reactant\_store\_test.cpp}]{./Tests/reactant_store_test.cpp}
+  \lstinputlisting[style=colorC++,caption={./Tests/symbol\_table\_test.cpp}]{./Tests/symbol_table_test.cpp}
+  \lstinputlisting[style=colorC++,caption={./Tests/vessel\_test.cpp}]{./Tests/vessel_test.cpp}
+  \lstinputlisting[style=colorBash,caption={./CMakeLists.txt}]{./CMakeLists.txt}
+  \lstinputlisting[style=colorBash,caption={./README.md}]{./README.md}
+\end{document}
