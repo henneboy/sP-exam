@@ -11,7 +11,7 @@ size_t SimulateSeihrPeak_ThreadPool(size_t N, size_t iterations)
 {
     vector<unsigned> results{};
 
-    // Create a thread pool with 4 threads
+    // Create a thread pools
     ThreadPool pool(SimulateSeihrPeak, N, results, iterations);
 
     pool.waitForCompletion();
